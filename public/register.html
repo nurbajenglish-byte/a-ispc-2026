@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — A-ISPC 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="register-page">
+
+  <!-- ── Header ──────────────────────────────────────────────────────────── -->
+  <header class="site-header">
+    <a href="index.html" class="logo-link">
+      <span class="logo-badge">A-ISPC</span>
+      <span class="logo-year">2026</span>
+    </a>
+    <nav class="header-nav">
+      <a href="index.html">← Back to Home</a>
+    </nav>
+  </header>
+
+  <!-- ── Page Hero ───────────────────────────────────────────────────────── -->
+  <section class="register-hero">
+    <div class="register-hero__inner">
+      <p class="register-hero__eyebrow">Team Registration</p>
+      <h1 class="register-hero__title">Secure Your Place<br/>at A-ISPC 2026</h1>
+      <p class="register-hero__sub">
+        Online Preliminary Round entry · <strong>USD $80 per team</strong> · Secure payment via Stripe
+      </p>
+    </div>
+    <div class="register-hero__rule"></div>
+  </section>
+
+  <!-- ── Main Form ───────────────────────────────────────────────────────── -->
+  <main class="register-main">
+    <div class="form-shell">
+
+      <!-- Progress indicator -->
+      <div class="form-progress" aria-hidden="true">
+        <div class="form-progress__step active" data-step="1">
+          <span class="step-num">1</span><span class="step-label">Division</span>
+        </div>
+        <div class="form-progress__connector"></div>
+        <div class="form-progress__step" data-step="2">
+          <span class="step-num">2</span><span class="step-label">School</span>
+        </div>
+        <div class="form-progress__connector"></div>
+        <div class="form-progress__step" data-step="3">
+          <span class="step-num">3</span><span class="step-label">Team</span>
+        </div>
+        <div class="form-progress__connector"></div>
+        <div class="form-progress__step" data-step="4">
+          <span class="step-num">4</span><span class="step-label">Mentor</span>
+        </div>
+        <div class="form-progress__connector"></div>
+        <div class="form-progress__step" data-step="5">
+          <span class="step-num">5</span><span class="step-label">Payment</span>
+        </div>
+      </div>
+
+      <!-- Error banner -->
+      <div id="form-error" class="form-error-banner" role="alert" hidden>
+        <span class="error-icon">⚠</span>
+        <span id="form-error-text"></span>
+      </div>
+
+      <form id="registration-form" novalidate>
+
+        <!-- ── Section 1: Division & Team Name ──────────────────────────── -->
+        <fieldset class="form-section" data-section="1">
+          <legend class="form-section__legend">
+            <span class="legend-num">01</span> Competition Division
+          </legend>
+
+          <div class="field-group">
+            <label class="field-label" for="teamName">
+              Team Name <span class="required">*</span>
+            </label>
+            <input
+              class="field-input"
+              type="text"
+              id="teamName"
+              name="teamName"
+              placeholder="e.g. Quantum Pioneers"
+              maxlength="80"
+              autocomplete="off"
+              required
+            />
+            <p class="field-hint">Choose a unique name that represents your team.</p>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">
+              Division <span class="required">*</span>
+            </label>
+            <div class="division-cards">
+              <label class="division-card" for="divJunior">
+                <input type="radio" id="divJunior" name="division" value="Junior" required />
+                <div class="division-card__body">
+                  <span class="division-card__title">Junior</span>
+                  <span class="division-card__ages">Ages 12 – 15</span>
+                  <span class="division-card__desc">Grades 7 – 10 (or equivalent)</span>
+                </div>
+              </label>
+              <label class="division-card" for="divSenior">
+                <input type="radio" id="divSenior" name="division" value="Senior" />
+                <div class="division-card__body">
+                  <span class="division-card__title">Senior</span>
+                  <span class="division-card__ages">Ages 16 – 18</span>
+                  <span class="division-card__desc">Grades 11 – 13 (or equivalent)</span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- ── Section 2: School & Country ──────────────────────────────── -->
+        <fieldset class="form-section" data-section="2">
+          <legend class="form-section__legend">
+            <span class="legend-num">02</span> School &amp; Location
+          </legend>
+
+          <div class="field-group">
+            <label class="field-label" for="schoolName">
+              School Name <span class="required">*</span>
+            </label>
+            <input
+              class="field-input"
+              type="text"
+              id="schoolName"
+              name="schoolName"
+              placeholder="e.g. Singapore International School"
+              maxlength="120"
+              required
+            />
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="country">
+              Country / Territory <span class="required">*</span>
+            </label>
+            <div class="select-wrapper">
+              <select class="field-input field-select" id="country" name="country" required>
+                <option value="" disabled selected>Select your country…</option>
+                <optgroup label="Southeast Asia">
+                  <option>Brunei</option>
+                  <option>Cambodia</option>
+                  <option>Indonesia</option>
+                  <option>Laos</option>
+                  <option>Malaysia</option>
+                  <option>Myanmar</option>
+                  <option>Philippines</option>
+                  <option>Singapore</option>
+                  <option>Thailand</option>
+                  <option>Timor-Leste</option>
+                  <option>Vietnam</option>
+                </optgroup>
+                <optgroup label="East Asia">
+                  <option>China</option>
+                  <option>Hong Kong SAR</option>
+                  <option>Japan</option>
+                  <option>Macau SAR</option>
+                  <option>Mongolia</option>
+                  <option>South Korea</option>
+                  <option>Taiwan</option>
+                </optgroup>
+                <optgroup label="South Asia">
+                  <option>Bangladesh</option>
+                  <option>India</option>
+                  <option>Nepal</option>
+                  <option>Pakistan</option>
+                  <option>Sri Lanka</option>
+                </optgroup>
+                <optgroup label="Middle East">
+                  <option>Bahrain</option>
+                  <option>Kuwait</option>
+                  <option>Oman</option>
+                  <option>Qatar</option>
+                  <option>Saudi Arabia</option>
+                  <option>UAE</option>
+                </optgroup>
+                <optgroup label="Oceania">
+                  <option>Australia</option>
+                  <option>New Zealand</option>
+                </optgroup>
+                <optgroup label="Europe">
+                  <option>France</option>
+                  <option>Germany</option>
+                  <option>Netherlands</option>
+                  <option>Spain</option>
+                  <option>Switzerland</option>
+                  <option>United Kingdom</option>
+                </optgroup>
+                <optgroup label="Americas">
+                  <option>Brazil</option>
+                  <option>Canada</option>
+                  <option>Mexico</option>
+                  <option>United States</option>
+                </optgroup>
+                <optgroup label="Africa">
+                  <option>Egypt</option>
+                  <option>Kenya</option>
+                  <option>Nigeria</option>
+                  <option>South Africa</option>
+                </optgroup>
+              </select>
+              <span class="select-arrow">▾</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- ── Section 3: Team Members ───────────────────────────────────── -->
+        <fieldset class="form-section" data-section="3">
+          <legend class="form-section__legend">
+            <span class="legend-num">03</span> Team Members
+          </legend>
+          <p class="section-intro">Teams must have 2 or 3 student members. All members must be enrolled at the same school.</p>
+
+          <!-- Member 1 (always required) -->
+          <div class="member-block" data-member="1">
+            <div class="member-block__header">
+              <span class="member-badge">Member 1</span>
+              <span class="member-tag required-tag">Required</span>
+            </div>
+            <div class="field-row">
+              <div class="field-group field-group--grow">
+                <label class="field-label" for="member1Name">Full Name <span class="required">*</span></label>
+                <input class="field-input" type="text" id="member1Name" name="member1Name" placeholder="Full name" required />
+              </div>
+              <div class="field-group field-group--narrow">
+                <label class="field-label" for="member1Age">Age <span class="required">*</span></label>
+                <input class="field-input" type="number" id="member1Age" name="member1Age" placeholder="e.g. 15" min="12" max="18" required />
+              </div>
+            </div>
+          </div>
+
+          <!-- Member 2 (required — minimum 2) -->
+          <div class="member-block" data-member="2">
+            <div class="member-block__header">
+              <span class="member-badge">Member 2</span>
+              <span class="member-tag required-tag">Required</span>
+            </div>
+            <div class="field-row">
+              <div class="field-group field-group--grow">
+                <label class="field-label" for="member2Name">Full Name <span class="required">*</span></label>
+                <input class="field-input" type="text" id="member2Name" name="member2Name" placeholder="Full name" required />
+              </div>
+              <div class="field-group field-group--narrow">
+                <label class="field-label" for="member2Age">Age <span class="required">*</span></label>
+                <input class="field-input" type="number" id="member2Age" name="member2Age" placeholder="e.g. 14" min="12" max="18" required />
+              </div>
+            </div>
+          </div>
+
+          <!-- Member 3 (optional — toggle) -->
+          <div class="member-block member-block--optional" data-member="3">
+            <div class="member-block__header">
+              <span class="member-badge">Member 3</span>
+              <label class="toggle-switch" for="addMember3">
+                <input type="checkbox" id="addMember3" />
+                <span class="toggle-track"></span>
+                <span class="toggle-label">Add third member</span>
+              </label>
+            </div>
+            <div class="member3-fields" id="member3Fields" hidden>
+              <div class="field-row">
+                <div class="field-group field-group--grow">
+                  <label class="field-label" for="member3Name">Full Name</label>
+                  <input class="field-input" type="text" id="member3Name" name="member3Name" placeholder="Full name" />
+                </div>
+                <div class="field-group field-group--narrow">
+                  <label class="field-label" for="member3Age">Age</label>
+                  <input class="field-input" type="number" id="member3Age" name="member3Age" placeholder="e.g. 13" min="12" max="18" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- ── Section 4: Mentor Teacher ─────────────────────────────────── -->
+        <fieldset class="form-section" data-section="4">
+          <legend class="form-section__legend">
+            <span class="legend-num">04</span> Mentor Teacher
+          </legend>
+          <p class="section-intro">Each team must have one supervising teacher mentor. The payment receipt and competition communications will be sent to the mentor's email.</p>
+
+          <div class="field-group">
+            <label class="field-label" for="mentorName">
+              Full Name <span class="required">*</span>
+            </label>
+            <input
+              class="field-input"
+              type="text"
+              id="mentorName"
+              name="mentorName"
+              placeholder="e.g. Dr. Sarah Lim"
+              required
+            />
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="mentorEmail">
+              Email Address <span class="required">*</span>
+            </label>
+            <input
+              class="field-input"
+              type="email"
+              id="mentorEmail"
+              name="mentorEmail"
+              placeholder="teacher@school.edu"
+              autocomplete="email"
+              required
+            />
+            <p class="field-hint">Must be an institutional/school email address. Payment receipt and all competition updates will be sent here.</p>
+          </div>
+        </fieldset>
+
+        <!-- ── Section 5: Review & Pay ────────────────────────────────────── -->
+        <fieldset class="form-section" data-section="5">
+          <legend class="form-section__legend">
+            <span class="legend-num">05</span> Review &amp; Pay
+          </legend>
+
+          <!-- Summary box — filled by JS -->
+          <div class="review-box" id="reviewBox" hidden>
+            <h3 class="review-box__title">Registration Summary</h3>
+            <dl class="review-grid" id="reviewGrid"></dl>
+          </div>
+
+          <!-- Fee breakdown -->
+          <div class="fee-box">
+            <div class="fee-box__row">
+              <span>Online Preliminary Round Entry</span>
+              <span class="fee-amount">USD $80.00</span>
+            </div>
+            <div class="fee-box__row fee-box__row--note">
+              <span>Payment processed by Stripe · Converted to HKD at checkout</span>
+            </div>
+          </div>
+
+          <!-- Terms -->
+          <div class="field-group">
+            <label class="checkbox-label" for="agreeTerms">
+              <input type="checkbox" id="agreeTerms" name="agreeTerms" required />
+              <span>
+                I confirm that all information provided is accurate, and I agree to the
+                <a href="#" class="inline-link">Competition Rules &amp; Terms</a>
+                and
+                <a href="#" class="inline-link">Refund Policy</a>.
+              </span>
+            </label>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn-pay" id="submitBtn">
+            <span class="btn-pay__text">Proceed to Secure Payment</span>
+            <span class="btn-pay__icon" aria-hidden="true">→</span>
+            <span class="btn-pay__loading" hidden>
+              <span class="spinner"></span> Redirecting to Stripe…
+            </span>
+          </button>
+
+          <p class="payment-footnote">
+            <span class="lock-icon">🔒</span>
+            Secure checkout powered by <strong>Stripe</strong>.
+            Your card details are never handled by our server.
+          </p>
+        </fieldset>
+
+      </form>
+    </div>
+
+    <!-- Sidebar info -->
+    <aside class="register-aside">
+      <div class="aside-card">
+        <h3 class="aside-card__title">Key Dates</h3>
+        <ul class="aside-timeline">
+          <li><span class="tl-date">15 Aug 2025</span><span class="tl-event">Registration Opens</span></li>
+          <li><span class="tl-date">31 Jan 2026</span><span class="tl-event">Registration Closes</span></li>
+          <li><span class="tl-date">Mar 2026</span><span class="tl-event">Online Preliminary Round</span></li>
+          <li><span class="tl-date">Jun 2026</span><span class="tl-event">Finals — Kuala Lumpur</span></li>
+        </ul>
+      </div>
+
+      <div class="aside-card">
+        <h3 class="aside-card__title">What's Included</h3>
+        <ul class="aside-list">
+          <li>✓ Online elimination round access</li>
+          <li>✓ Judging &amp; feedback report</li>
+          <li>✓ Certificate of participation</li>
+          <li>✓ Eligibility for KL finals</li>
+        </ul>
+      </div>
+
+      <div class="aside-card aside-card--help">
+        <h3 class="aside-card__title">Need Help?</h3>
+        <p>Contact our registration team at<br/>
+        <a href="mailto:register@a-ispc.org">register@a-ispc.org</a></p>
+      </div>
+    </aside>
+
+  </main>
+
+  <script src="js/register.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registration Confirmed — A-ISPC 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="status-page">
+
+  <header class="site-header">
+    <a href="index.html" class="logo-link">
+      <span class="logo-badge">A-ISPC</span>
+      <span class="logo-year">2026</span>
+    </a>
+  </header>
+
+  <main class="status-main">
+    <div class="status-card status-card--success">
+
+      <div class="status-icon status-icon--success" aria-hidden="true">✓</div>
+      <h1 class="status-title">You're Registered!</h1>
+      <p class="status-subtitle">
+        Payment confirmed. Welcome to A-ISPC 2026.
+      </p>
+
+      <!-- Loading state -->
+      <div id="detailsLoading" class="details-loading">
+        <span class="spinner spinner--dark"></span>
+        <span>Fetching your registration details…</span>
+      </div>
+
+      <!-- Registration details — populated by JS -->
+      <div id="registrationDetails" class="reg-details" hidden>
+        <h2 class="reg-details__heading">Registration Details</h2>
+        <dl class="reg-details__grid" id="detailsGrid"></dl>
+      </div>
+
+      <!-- Error state -->
+      <div id="detailsError" class="details-error" hidden>
+        <p>We could not load your registration details, but your payment was successful.</p>
+        <p>Please check your email for a receipt from Stripe, or contact us at
+          <a href="mailto:register@a-ispc.org">register@a-ispc.org</a>.
+        </p>
+      </div>
+
+      <div class="status-next">
+        <h3>What Happens Next?</h3>
+        <ol class="next-steps">
+          <li>A <strong>payment receipt</strong> from Stripe will arrive at your mentor's email shortly.</li>
+          <li>Our team will send a <strong>Welcome &amp; Confirmation Package</strong> within 5 business days.</li>
+          <li>The <strong>Online Preliminary Round</strong> portal will open in March 2026 — details via email.</li>
+          <li>Top teams will be invited to the <strong>Finals in Kuala Lumpur</strong> in June 2026.</li>
+        </ol>
+      </div>
+
+      <div class="status-actions">
+        <a href="index.html" class="btn-secondary">← Back to Home</a>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    (async function () {
+      const params    = new URLSearchParams(window.location.search);
+      const sessionId = params.get("session_id");
+      const loading   = document.getElementById("detailsLoading");
+      const details   = document.getElementById("registrationDetails");
+      const grid      = document.getElementById("detailsGrid");
+      const errDiv    = document.getElementById("detailsError");
+
+      if (!sessionId) {
+        loading.hidden = true;
+        errDiv.hidden  = false;
+        return;
+      }
+
+      try {
+        const res  = await fetch(`/api/session?session_id=${encodeURIComponent(sessionId)}`);
+        const data = await res.json();
+
+        if (!res.ok || data.paymentStatus !== "paid") throw new Error("Not paid");
+
+        const m = data.metadata || {};
+
+        const rows = [
+          ["Team",        m.team_name   || "—"],
+          ["Division",    m.division    || "—"],
+          ["School",      m.school_name || "—"],
+          ["Country",     m.country     || "—"],
+          ["Member 1",    m.member_1_name ? `${m.member_1_name}, age ${m.member_1_age}` : "—"],
+          m.member_2_name ? ["Member 2", `${m.member_2_name}, age ${m.member_2_age}`] : null,
+          m.member_3_name ? ["Member 3", `${m.member_3_name}, age ${m.member_3_age}`] : null,
+          ["Mentor",      m.mentor_name  || "—"],
+          ["Mentor Email",m.mentor_email || "—"],
+        ].filter(Boolean);
+
+        rows.forEach(([label, value]) => {
+          const dt = document.createElement("dt");
+          dt.textContent = label;
+          const dd = document.createElement("dd");
+          dd.textContent = value;
+          grid.appendChild(dt);
+          grid.appendChild(dd);
+        });
+
+        loading.hidden  = true;
+        details.hidden  = false;
+
+      } catch {
+        loading.hidden = true;
+        errDiv.hidden  = false;
+      }
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Cancelled — A-ISPC 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="status-page">
+
+  <header class="site-header">
+    <a href="index.html" class="logo-link">
+      <span class="logo-badge">A-ISPC</span>
+      <span class="logo-year">2026</span>
+    </a>
+  </header>
+
+  <main class="status-main">
+    <div class="status-card status-card--cancel">
+
+      <div class="status-icon status-icon--cancel" aria-hidden="true">✕</div>
+      <h1 class="status-title">Payment Cancelled</h1>
+      <p class="status-subtitle">
+        No charge was made. Your registration is not yet confirmed.
+      </p>
+
+      <div class="cancel-info">
+        <p>
+          You left the Stripe checkout page before completing payment.
+          This can happen if you closed the tab, pressed the back button,
+          or your session timed out.
+        </p>
+        <p>
+          <strong>Your registration form data has not been saved.</strong>
+          Please click below to start a fresh registration.
+        </p>
+      </div>
+
+      <div class="status-actions">
+        <a href="register.html" class="btn-primary">Try Again →</a>
+        <a href="index.html" class="btn-secondary">Back to Home</a>
+      </div>
+
+      <p class="cancel-help">
+        Having trouble completing payment? Contact us at
+        <a href="mailto:register@a-ispc.org">register@a-ispc.org</a>
+        and we'll help you manually.
+      </p>
+
+    </div>
+  </main>
+
+</body>
+</html>
