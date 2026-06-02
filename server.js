@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
 //  A-ISPC 2026 — Express Server
-//  Emerald Horizon Ventures | Hibiscus International School (KL)
+//  Emerald Horizon Ventures | Hong Kong
 // ─────────────────────────────────────────────────────────────────────────────
 
 "use strict";
@@ -15,6 +15,7 @@ const REQUIRED_ENV = [
   "STRIPE_SECRET_KEY",
   "STRIPE_PUBLISHABLE_KEY",
   "STRIPE_PRICE_ID",
+  "STRIPE_EARLY_BIRD_PRICE_ID",
   "STRIPE_WEBHOOK_SECRET",
   "BASE_URL",
 ];
@@ -28,42 +29,42 @@ for (const key of REQUIRED_ENV) {
 const app  = express();
 const PORT = process.env.PORT || 3000;
 
-// ── Middleware ────────────────────────────────────────────────────────────────
+// ── Early bird pricing logic ──────────────────────────────────────────────────
+// Returns the correct Stripe Price ID based on today's date.
+// Early bird: USD $70 until 31 July 2026 (inclusive, midnight UTC).
+// Standard:   USD $80 from 1 August 2026 onwards.
+function getActivePriceId() {
+  const now          = new Date();
+  const earlyBirdEnd = new Date("2026-08-01T00:00:00Z"); // 1 Aug 2026 UTC
+  if (now < earlyBirdEnd) {
+    return process.env.STRIPE_EARLY_BIRD_PRICE_ID;
+  }
+  return process.env.STRIPE_PRICE_ID;
+}
 
-// Stripe webhooks require the RAW request body for signature verification.
-// This route MUST be registered BEFORE express.json().
+function isEarlyBird() {
+  return new Date() < new Date("2026-08-01T00:00:00Z");
+}
+
+// ── Middleware ────────────────────────────────────────────────────────────────
 app.post(
   "/api/webhook",
   express.raw({ type: "application/json" }),
   handleWebhook
 );
-
-// Standard JSON body parser for all other routes
 app.use(express.json());
-
-// Serve everything in /public as static files
 app.use(express.static(path.join(__dirname, "public")));
 
-// ── Route: Create Checkout Session ───────────────────────────────────────────
-//
-// POST /api/create-checkout-session
-//
-// Expected JSON body:
-// {
-//   teamName      : string  (required)
-//   division      : "Junior" | "Senior"  (required)
-//   schoolName    : string  (required)
-//   country       : string  (required)
-//   member1Name   : string  (required)
-//   member1Age    : string  (required)
-//   member2Name   : string  (optional)
-//   member2Age    : string  (optional)
-//   member3Name   : string  (optional)
-//   member3Age    : string  (optional)
-//   mentorName    : string  (required)
-//   mentorEmail   : string  (required)
-// }
+// ── Route: Pricing info (used by frontend to show correct price) ──────────────
+app.get("/api/pricing", (req, res) => {
+  res.json({
+    earlyBird : isEarlyBird(),
+    price     : isEarlyBird() ? 70 : 80,
+    deadline  : "2026-07-31",
+  });
+});
 
+// ── Route: Create Checkout Session ───────────────────────────────────────────
 app.post("/api/create-checkout-session", async (req, res) => {
   const {
     teamName,
@@ -79,7 +80,6 @@ app.post("/api/create-checkout-session", async (req, res) => {
 
   // ── Server-side validation ─────────────────────────────────────────────────
   const errors = [];
-
   if (!teamName?.trim())    errors.push("Team name is required.");
   if (!["Junior", "Senior"].includes(division))
                             errors.push("Division must be Junior or Senior.");
@@ -92,24 +92,22 @@ app.post("/api/create-checkout-session", async (req, res) => {
   if (!mentorName?.trim())  errors.push("Mentor teacher name is required.");
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mentorEmail))
                             errors.push("A valid mentor email address is required.");
-
   if (errors.length > 0) {
     return res.status(400).json({ error: errors.join(" ") });
   }
 
-  // ── Build metadata object ──────────────────────────────────────────────────
-  // Stripe metadata values must be strings; omit empty optional fields.
+  // ── Build metadata ─────────────────────────────────────────────────────────
   const metadata = {
-    team_name   : teamName.trim(),
+    team_name     : teamName.trim(),
     division,
-    school_name : schoolName.trim(),
-    country     : country.trim(),
+    school_name   : schoolName.trim(),
+    country       : country.trim(),
     member_1_name : member1Name.trim(),
     member_1_age  : member1Age.trim(),
     mentor_name   : mentorName.trim(),
     mentor_email  : mentorEmail.trim().toLowerCase(),
+    pricing_tier  : isEarlyBird() ? "early_bird_70" : "standard_80",
   };
-
   if (member2Name?.trim()) {
     metadata.member_2_name = member2Name.trim();
     metadata.member_2_age  = member2Age?.trim() || "";
@@ -121,29 +119,17 @@ app.post("/api/create-checkout-session", async (req, res) => {
 
   // ── Create Stripe Checkout Session ────────────────────────────────────────
   try {
+    const priceId   = getActivePriceId();
+    const tierLabel = isEarlyBird() ? "Early Bird — USD $70" : "USD $80";
+
     const session = await stripe.checkout.sessions.create({
-      mode               : "payment",
+      mode                : "payment",
       payment_method_types: ["card"],
-
-      line_items: [
-        {
-          price    : process.env.STRIPE_PRICE_ID,
-          quantity : 1,
-        },
-      ],
-
-      // Pre-fill the customer email with the mentor's email
+      line_items: [{ price: priceId, quantity: 1 }],
       customer_email: mentorEmail.trim().toLowerCase(),
-
-      // Appears on the payment intent and Stripe Dashboard transaction detail.
-      // Also surfaces on some bank statement views and dispute evidence.
       payment_intent_data: {
-        description: `A-ISPC 2026 Team Registration (Online Round) — ${metadata.team_name} (${metadata.division})`,
+        description: `A-ISPC 2026 Team Registration (${tierLabel}) — ${metadata.team_name} (${metadata.division})`,
       },
-
-      // Footer shown on the Stripe-hosted checkout page.
-      // Clarifies the commercial entity behind the .org domain to prevent
-      // registrant confusion and reduce chargebacks.
       custom_text: {
         submit: {
           message:
@@ -152,17 +138,12 @@ app.post("/api/create-checkout-session", async (req, res) => {
             "A receipt will be emailed to your mentor's address after payment.",
         },
       },
-
-      // All registration data stored against this payment in Stripe Dashboard
       metadata,
-
-      // Redirect URLs — BASE_URL set in .env (no trailing slash)
       success_url: `${process.env.BASE_URL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url : `${process.env.BASE_URL}/cancel.html`,
     });
 
     return res.status(200).json({ url: session.url });
-
   } catch (err) {
     console.error("[Stripe] Failed to create checkout session:", err.message);
     return res.status(500).json({
@@ -172,30 +153,20 @@ app.post("/api/create-checkout-session", async (req, res) => {
 });
 
 // ── Route: Retrieve Session (for success page) ────────────────────────────────
-//
-// GET /api/session?session_id=cs_...
-//
-// Used by success.html to display confirmed registration details.
-
 app.get("/api/session", async (req, res) => {
   const { session_id } = req.query;
-
   if (!session_id || !session_id.startsWith("cs_")) {
     return res.status(400).json({ error: "Invalid session ID." });
   }
-
   try {
     const session = await stripe.checkout.sessions.retrieve(session_id);
-
-    // Only expose safe, non-sensitive fields to the frontend
     return res.status(200).json({
-      paymentStatus : session.payment_status,  // "paid" | "unpaid" | "no_payment_required"
+      paymentStatus : session.payment_status,
       customerEmail : session.customer_email,
       metadata      : session.metadata,
-      amountTotal   : session.amount_total,    // in smallest currency unit (cents/HKD fen)
+      amountTotal   : session.amount_total,
       currency      : session.currency,
     });
-
   } catch (err) {
     console.error("[Stripe] Failed to retrieve session:", err.message);
     return res.status(500).json({ error: "Could not retrieve session details." });
@@ -203,79 +174,55 @@ app.get("/api/session", async (req, res) => {
 });
 
 // ── Webhook Handler ───────────────────────────────────────────────────────────
-//
-// POST /api/webhook
-//
-// Stripe sends signed events here. We verify the signature, then act on
-// checkout.session.completed — the canonical "payment confirmed" event.
-
 function handleWebhook(req, res) {
   const sig = req.headers["stripe-signature"];
-
   let event;
   try {
     event = stripe.webhooks.constructEvent(
-      req.body,                             // raw Buffer (express.raw middleware)
-      sig,
-      process.env.STRIPE_WEBHOOK_SECRET
+      req.body, sig, process.env.STRIPE_WEBHOOK_SECRET
     );
   } catch (err) {
     console.error("[Webhook] Signature verification failed:", err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  // ── Handle event types ───────────────────────────────────────────────────
   switch (event.type) {
-
     case "checkout.session.completed": {
       const session = event.data.object;
-
       if (session.payment_status === "paid") {
         const m = session.metadata;
-
         console.log("─────────────────────────────────────────────");
         console.log("[Webhook] ✅ Payment confirmed");
         console.log(`  Team       : ${m.team_name}  (${m.division})`);
         console.log(`  School     : ${m.school_name}, ${m.country}`);
+        console.log(`  Tier       : ${m.pricing_tier}`);
         console.log(`  Members    : ${[m.member_1_name, m.member_2_name, m.member_3_name].filter(Boolean).join(", ")}`);
         console.log(`  Mentor     : ${m.mentor_name} <${m.mentor_email}>`);
         console.log(`  Session ID : ${session.id}`);
         console.log("─────────────────────────────────────────────");
-
-        // ── TODO (post-MVP): add any of the following here ──────────────
-        //   • Write registration record to a database
-        //   • Send confirmation email via SendGrid / Postmark
-        //   • Post a notification to a Slack / Discord channel
-        //   • Add entry to a Google Sheet via API
-        // ────────────────────────────────────────────────────────────────
       }
       break;
     }
-
     case "checkout.session.expired": {
-      const session = event.data.object;
-      console.log(`[Webhook] ⚠️  Session expired: ${session.id}`);
-      // TODO: optionally notify the team to re-register
+      console.log(`[Webhook] ⚠️  Session expired: ${event.data.object.id}`);
       break;
     }
-
     default:
-      // Silently ignore event types we don't handle
       break;
   }
-
-  // Acknowledge receipt to Stripe (must respond within 30s)
   res.status(200).json({ received: true });
 }
 
-// ── Catch-all: serve index.html for any unmatched GET (SPA-friendly) ─────────
+// ── Catch-all ─────────────────────────────────────────────────────────────────
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // ── Start server ──────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
+  const tier = isEarlyBird() ? "EARLY BIRD ($70)" : "STANDARD ($80)";
   console.log(`\n🚀  A-ISPC 2026 server running`);
-  console.log(`   Local:   http://localhost:${PORT}`);
-  console.log(`   Env:     ${process.env.NODE_ENV || "development"}\n`);
+  console.log(`   Local:    http://localhost:${PORT}`);
+  console.log(`   Pricing:  ${tier}`);
+  console.log(`   Env:      ${process.env.NODE_ENV || "development"}\n`);
 });
