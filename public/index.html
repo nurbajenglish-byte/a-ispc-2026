@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>A-ISPC 2026 — International AI-Assisted Science Project Competition</title>
-  <meta name="description" content="The International AI-Assisted Science Project Competition 2026. Open to secondary school students worldwide. Online preliminary round, finals in Kuala Lumpur." />
+  <meta name="description" content="The International AI-Assisted Science Project Competition 2026. Open to secondary school students worldwide. Online preliminary round, finals in Hong Kong." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
@@ -12,7 +12,6 @@
 </head>
 <body class="landing-page">
 
-  <!-- ── Navigation ──────────────────────────────────────────────────────── -->
   <header class="site-header site-header--landing" id="siteHeader">
     <a href="index.html" class="logo-link">
       <span class="logo-badge">A-ISPC</span>
@@ -25,17 +24,23 @@
       <a href="#faq">FAQ</a>
       <a href="register.html" class="nav-cta">Register →</a>
     </nav>
-    <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle menu">☰</button>
   </header>
 
-  <!-- ── Hero ────────────────────────────────────────────────────────────── -->
+  <!-- Early Bird Banner -->
+  <div class="early-bird-banner" id="earlyBirdBanner">
+    <span class="eb-fire">🔥</span>
+    <span><strong>Early Bird Pricing:</strong> Register before 31 July 2026 and pay only <strong>USD $70</strong> instead of $80.</span>
+    <a href="register.html" class="eb-cta">Register Now →</a>
+  </div>
+
+  <!-- ── Hero ──────────────────────────────────────────────────────────────── -->
   <section class="hero">
     <div class="hero__bg-grid" aria-hidden="true"></div>
     <div class="hero__inner">
       <div class="hero__left">
         <p class="hero__eyebrow">
           <span class="eyebrow-dot"></span>
-          Hosted by Hibiscus International School · Kuala Lumpur
+          Finals · Hong Kong · December 2026
         </p>
         <h1 class="hero__title">
           International<br/>
@@ -56,7 +61,7 @@
           </a>
           <a href="#about" class="btn-ghost">Learn More ↓</a>
         </div>
-        <p class="hero__fee-note">USD $80 per team · Online preliminary round</p>
+        <p class="hero__fee-note" id="heroFeeNote">Early Bird: USD $70 per team · Until 31 July 2026</p>
       </div>
       <div class="hero__right" aria-hidden="true">
         <div class="hero__orb hero__orb--1"></div>
@@ -66,18 +71,18 @@
           <span class="stat-label">Divisions</span>
         </div>
         <div class="hero__stat-card hero__stat-card--2">
-          <span class="stat-number">Jun '26</span>
-          <span class="stat-label">Finals · KL</span>
+          <span class="stat-number">Dec '26</span>
+          <span class="stat-label">Finals · HK</span>
         </div>
         <div class="hero__stat-card hero__stat-card--3">
-          <span class="stat-number">$80</span>
-          <span class="stat-label">Entry · USD</span>
+          <span class="stat-number" id="heroPrice">$70</span>
+          <span class="stat-label">Early Bird</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── About ────────────────────────────────────────────────────────────── -->
+  <!-- ── About ─────────────────────────────────────────────────────────────── -->
   <section class="section section--about" id="about">
     <div class="container">
       <div class="section-header">
@@ -98,8 +103,7 @@
           </p>
           <p>
             The competition begins with an online elimination round, with qualifying teams
-            invited to present at the hybrid finals at Hibiscus International School in
-            Kuala Lumpur in June 2026.
+            invited to present at the hybrid finals in <strong>Hong Kong</strong> in December 2026.
           </p>
         </div>
         <div class="about-features">
@@ -121,14 +125,14 @@
             <span class="feature-icon">🌏</span>
             <div>
               <strong>Global Community</strong>
-              <p>Connect with student researchers from schools across Asia, Oceania, and beyond.</p>
+              <p>Connect with student researchers from schools across Asia, Oceania, Europe, and beyond.</p>
             </div>
           </div>
           <div class="feature-item">
             <span class="feature-icon">🏆</span>
             <div>
               <strong>Real Recognition</strong>
-              <p>Awards, certificates, and the chance to present at a physical international final.</p>
+              <p>Awards, certificates, and the chance to present at a prestigious Hong Kong final.</p>
             </div>
           </div>
         </div>
@@ -136,7 +140,7 @@
     </div>
   </section>
 
-  <!-- ── Timeline ─────────────────────────────────────────────────────────── -->
+  <!-- ── Timeline ──────────────────────────────────────────────────────────── -->
   <section class="section section--timeline" id="timeline">
     <div class="container">
       <div class="section-header">
@@ -145,25 +149,33 @@
       </div>
       <div class="timeline">
         <div class="timeline-item">
-          <div class="timeline-marker timeline-marker--done"></div>
+          <div class="timeline-marker timeline-marker--active"></div>
           <div class="timeline-content">
-            <span class="timeline-date">15 August 2025</span>
-            <h3>Registration Opens</h3>
-            <p>Teams may register and submit payment online.</p>
+            <span class="timeline-date">15 June 2026</span>
+            <h3>Registration Opens 🎉</h3>
+            <p>Teams may register online. Early Bird rate of <strong>USD $70</strong> applies until 31 July.</p>
           </div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-marker timeline-marker--active"></div>
+          <div class="timeline-marker timeline-marker--eb"></div>
           <div class="timeline-content">
-            <span class="timeline-date">31 January 2026</span>
-            <h3>Registration Deadline</h3>
-            <p>All team registrations and payments must be completed by 11:59 PM MYT.</p>
+            <span class="timeline-date">31 July 2026</span>
+            <h3>Early Bird Deadline</h3>
+            <p>Registration fee increases to USD $80 from 1 August. Register early to save.</p>
           </div>
         </div>
         <div class="timeline-item">
           <div class="timeline-marker"></div>
           <div class="timeline-content">
-            <span class="timeline-date">March 2026</span>
+            <span class="timeline-date">30 September 2026</span>
+            <h3>Registration Closes</h3>
+            <p>All team registrations and payments must be completed by 11:59 PM HKT.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">October 2026</span>
             <h3>Online Preliminary Round</h3>
             <p>Teams submit their project reports and a short presentation video for judging.</p>
           </div>
@@ -171,24 +183,58 @@
         <div class="timeline-item">
           <div class="timeline-marker"></div>
           <div class="timeline-content">
-            <span class="timeline-date">April 2026</span>
+            <span class="timeline-date">15 November 2026</span>
             <h3>Results Announced</h3>
-            <p>Qualifying teams are notified and invited to the KL Finals.</p>
+            <p>Qualifying teams are notified and invited to the Hong Kong Finals.</p>
           </div>
         </div>
         <div class="timeline-item">
           <div class="timeline-marker timeline-marker--finals"></div>
           <div class="timeline-content">
-            <span class="timeline-date">June 2026</span>
-            <h3>Finals — Kuala Lumpur 🇲🇾</h3>
-            <p>Hybrid event at Hibiscus International School. Live presentations, judging panels, and an awards ceremony.</p>
+            <span class="timeline-date">11–13 December 2026</span>
+            <h3>Finals — Hong Kong 🇭🇰</h3>
+            <p>Hybrid event in Hong Kong. Live presentations, expert judging panels, and an awards ceremony. Remote participation available for teams unable to travel.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── Divisions ────────────────────────────────────────────────────────── -->
+  <!-- ── Venue ──────────────────────────────────────────────────────────────── -->
+  <section class="section section--venue" id="venue">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Finals Location</span>
+        <h2 class="section-title">Hong Kong 🇭🇰</h2>
+        <p class="section-sub">11–13 December 2026 · Hybrid (In-Person + Remote)</p>
+      </div>
+      <div class="venue-grid">
+        <div class="venue-card venue-card--main">
+          <div class="venue-card__icon">🏛️</div>
+          <h3>Hong Kong Science Park</h3>
+          <p class="venue-location">Pak Shek Kok, New Territories, Hong Kong</p>
+          <p>Asia's premier innovation hub — home to 1,000+ technology companies and research institutes. State-of-the-art conference and presentation facilities with full hybrid streaming capability.</p>
+          <span class="venue-tag">Preferred Venue</span>
+        </div>
+        <div class="venue-card">
+          <div class="venue-card__icon">🎓</div>
+          <h3>CyberPort Hong Kong</h3>
+          <p class="venue-location">Pok Fu Lam, Hong Kong Island</p>
+          <p>Hong Kong's flagship digital technology hub. Modern event spaces, direct tech industry connections, and strong media visibility for student achievements.</p>
+          <span class="venue-tag">Alternative</span>
+        </div>
+        <div class="venue-card">
+          <div class="venue-card__icon">🌐</div>
+          <h3>Remote Participation</h3>
+          <p class="venue-location">Available Worldwide</p>
+          <p>Qualifying teams unable to travel to Hong Kong may present live via video link. Full judging access and awards eligibility — no team is excluded by geography.</p>
+          <span class="venue-tag">Hybrid Option</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Divisions ─────────────────────────────────────────────────────────── -->
   <section class="section section--divisions" id="divisions">
     <div class="container">
       <div class="section-header">
@@ -204,7 +250,7 @@
             <li>Teams of 2–3 students</li>
             <li>+ 1 supervising mentor teacher</li>
             <li>All members from the same school</li>
-            <li>Entry fee: USD $80 per team</li>
+            <li>Early Bird: USD $70 · Standard: USD $80</li>
           </ul>
           <a href="register.html" class="btn-primary">Register — Junior</a>
         </div>
@@ -216,7 +262,7 @@
             <li>Teams of 2–3 students</li>
             <li>+ 1 supervising mentor teacher</li>
             <li>All members from the same school</li>
-            <li>Entry fee: USD $80 per team</li>
+            <li>Early Bird: USD $70 · Standard: USD $80</li>
           </ul>
           <a href="register.html" class="btn-primary">Register — Senior</a>
         </div>
@@ -227,7 +273,7 @@
     </div>
   </section>
 
-  <!-- ── FAQ ──────────────────────────────────────────────────────────────── -->
+  <!-- ── FAQ ───────────────────────────────────────────────────────────────── -->
   <section class="section section--faq" id="faq">
     <div class="container container--narrow">
       <div class="section-header">
@@ -235,6 +281,12 @@
         <h2 class="section-title">Common Questions</h2>
       </div>
       <div class="faq-list">
+        <details class="faq-item">
+          <summary class="faq-question">What is the Early Bird discount?</summary>
+          <div class="faq-answer">
+            <p>Teams that register and pay before 31 July 2026 receive the Early Bird rate of USD $70 per team. From 1 August 2026, the standard rate of USD $80 applies. The discount is applied automatically at checkout — no code needed.</p>
+          </div>
+        </details>
         <details class="faq-item">
           <summary class="faq-question">What does "AI-Assisted" mean in practice?</summary>
           <div class="faq-answer">
@@ -244,44 +296,44 @@
         <details class="faq-item">
           <summary class="faq-question">Can students from different schools form a team?</summary>
           <div class="faq-answer">
-            <p>No. All team members must be enrolled at the same school, and the team's mentor teacher must also be a staff member of that school. This rule exists to ensure clear institutional accountability.</p>
+            <p>No. All team members must be enrolled at the same school, and the team's mentor teacher must also be a staff member of that school. This rule ensures clear institutional accountability.</p>
           </div>
         </details>
         <details class="faq-item">
           <summary class="faq-question">What is the refund policy?</summary>
           <div class="faq-answer">
-            <p>Full refunds are available until 1 December 2025. After that date, the registration fee is non-refundable as judging resources are committed based on registered team counts. In the event that A-ISPC 2026 is cancelled by the organisers, all fees will be refunded in full.</p>
+            <p>Full refunds are available until 31 August 2026. After that date, the registration fee is non-refundable as judging resources are committed based on registered team counts. In the event that A-ISPC 2026 is cancelled by the organisers, all fees will be refunded in full.</p>
           </div>
         </details>
         <details class="faq-item">
-          <summary class="faq-question">Does every team member need to travel to KL for the finals?</summary>
+          <summary class="faq-question">Does every team member need to travel to Hong Kong?</summary>
           <div class="faq-answer">
-            <p>The finals are hybrid. Qualifying teams may attend in person at Hibiscus International School or present remotely via live video link. Physical attendance is strongly encouraged for the full experience, but we recognise that travel may not be possible for all teams.</p>
+            <p>The finals are hybrid. Qualifying teams may attend in person in Hong Kong or present remotely via live video link. Physical attendance is strongly encouraged but we recognise that travel may not be possible for all teams — remote participants have full judging access and awards eligibility.</p>
           </div>
         </details>
         <details class="faq-item">
           <summary class="faq-question">In what currency is payment collected?</summary>
           <div class="faq-answer">
-            <p>The entry fee is USD $80 per team. Payment is collected via Stripe; your card will be charged in your local currency at the exchange rate applied by Stripe or your card issuer at the time of payment. A receipt in USD will be issued by Stripe to your mentor teacher's email.</p>
+            <p>The entry fee is USD $70 (Early Bird) or USD $80 (Standard). Payment is collected via Stripe by Emerald Horizon Ventures (Hong Kong). Your card will be charged in your local currency at the rate applied by Stripe or your card issuer. A receipt in USD will be issued to your mentor teacher's email.</p>
           </div>
         </details>
         <details class="faq-item">
           <summary class="faq-question">We're having trouble registering. Who do we contact?</summary>
           <div class="faq-answer">
-            <p>Email our registration team at <a href="mailto:register@a-ispc.org">register@a-ispc.org</a>. We aim to respond within 2 business days.</p>
+            <p>Email our registration team at <a href="mailto:register@aispc2026.org">register@aispc2026.org</a>. We aim to respond within 2 business days.</p>
           </div>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- ── CTA Banner ────────────────────────────────────────────────────────── -->
+  <!-- ── CTA Banner ─────────────────────────────────────────────────────────── -->
   <section class="section section--cta">
     <div class="container">
       <div class="cta-banner">
         <div class="cta-banner__text">
-          <h2>Registration closes 31 January 2026</h2>
-          <p>Secure your team's place before the deadline.</p>
+          <h2>Early Bird ends 31 July 2026</h2>
+          <p>Register now for USD $70 — price rises to $80 on 1 August.</p>
         </div>
         <a href="register.html" class="btn-primary btn-primary--large btn-primary--light">
           Register Now →
@@ -290,7 +342,7 @@
     </div>
   </section>
 
-  <!-- ── Footer ───────────────────────────────────────────────────────────── -->
+  <!-- ── Footer ────────────────────────────────────────────────────────────── -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
@@ -300,8 +352,8 @@
           <p>International AI-Assisted Science Project Competition</p>
         </div>
         <div class="footer-col">
-          <strong>Host Partner</strong>
-          <p>Hibiscus International School<br/>Kuala Lumpur, Malaysia</p>
+          <strong>Finals</strong>
+          <p>Hong Kong<br/>11–13 December 2026<br/>Hybrid Format</p>
         </div>
         <div class="footer-col">
           <strong>Organiser</strong>
@@ -309,32 +361,39 @@
         </div>
         <div class="footer-col">
           <strong>Contact</strong>
-          <p><a href="mailto:register@a-ispc.org">register@a-ispc.org</a></p>
+          <p><a href="mailto:register@aispc2026.org">register@aispc2026.org</a></p>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2025–2026 Emerald Horizon Ventures. All rights reserved.</p>
+        <p>© 2026 Emerald Horizon Ventures. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
   <script>
-    // Smooth scroll for anchor links
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener("click", e => {
         const target = document.querySelector(a.getAttribute("href"));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: "smooth" });
-        }
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: "smooth" }); }
       });
     });
-
-    // Sticky header shadow on scroll
+    // Sticky header
     const header = document.getElementById("siteHeader");
     window.addEventListener("scroll", () => {
       header.classList.toggle("scrolled", window.scrollY > 20);
     });
+    // Dynamic pricing from server
+    fetch("/api/pricing").then(r => r.json()).then(data => {
+      if (!data.earlyBird) {
+        const banner = document.getElementById("earlyBirdBanner");
+        if (banner) banner.remove();
+        const note = document.getElementById("heroFeeNote");
+        if (note) note.textContent = "USD $80 per team · Online preliminary round";
+        const price = document.getElementById("heroPrice");
+        if (price) { price.textContent = "$80"; price.nextElementSibling.textContent = "Entry · USD"; }
+      }
+    }).catch(() => {});
   </script>
 
 </body>
