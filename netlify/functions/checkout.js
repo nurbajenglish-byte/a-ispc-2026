@@ -1,5 +1,7 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
+const BASE_URL = "https://aispc2026.org";
+
 function isEarlyBird() {
   return new Date() < new Date("2026-08-01T00:00:00Z");
 }
@@ -51,8 +53,7 @@ exports.handler = async function(event, context) {
     if (member2Name?.trim()) { metadata.member_2_name = member2Name.trim(); metadata.member_2_age = member2Age?.trim() || ""; }
     if (member3Name?.trim()) { metadata.member_3_name = member3Name.trim(); metadata.member_3_age = member3Age?.trim() || ""; }
 
-    const baseUrl = process.env.BASE_URL || "https://aispc2026.org";
-    const tierLabel = eb ? "Early Bird — USD $70" : "USD $80";
+    const tierLabel = eb ? "Early Bird — USD 0" : "USD 0";
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
@@ -60,16 +61,16 @@ exports.handler = async function(event, context) {
       line_items: [{ price: getActivePriceId(), quantity: 1 }],
       customer_email: mentorEmail.trim().toLowerCase(),
       payment_intent_data: {
-        description: `A-ISPC 2026 Team Registration (${tierLabel}) — ${metadata.team_name} (${metadata.division})`
+        description: 
       },
       custom_text: {
         submit: {
-          message: "Payment is collected by Emerald Horizon Ventures (Hong Kong) on behalf of A-ISPC 2026. Your bank statement will show EMERALD HORIZON VENTUR / A-ISPC. A receipt will be emailed to your mentor address after payment."
+          message: "Payment is collected by Emerald Horizon Ventures (Hong Kong) on behalf of A-ISPC 2026. A receipt will be emailed to your mentor address after payment."
         }
       },
       metadata,
-      success_url: `${baseUrl}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/cancel.html`
+      success_url: BASE_URL + "/success.html?session_id={CHECKOUT_SESSION_ID}",
+      cancel_url: BASE_URL + "/cancel.html"
     });
 
     return { statusCode: 200, headers, body: JSON.stringify({ url: session.url }) };
