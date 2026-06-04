@@ -1,19 +1,9 @@
 {
   "name": "a-ispc-2026",
   "version": "1.0.0",
-  "description": "Registration portal for the International AI-Assisted Science Project Competition 2026",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
-  },
+  "description": "Registration portal for A-ISPC 2026",
   "dependencies": {
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
     "stripe": "^16.2.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.4"
   },
   "engines": {
     "node": ">=18.0.0"
