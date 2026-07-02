@@ -1,1382 +1,700 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A-ISPC 2026: The world's first global science competition for secondary students using AI as a research tool. Register before July 31 for Early Bird pricing: $70. Finals in Hong Kong, December 11–13.">
-  <title>A-ISPC 2026 — AI Science Competition | Finals Hong Kong December 2026</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --primary: #1A3C34;
-      --teal: #0D7A5F;
-      --mint: #3DBE8C;
-      --gold: #C8A84B;
-      --dark: #0F1419;
-      --light: #F8F9FA;
-      --text: #1A1A1A;
-      --text-light: #6B7280;
-      --border: #E5E7EB;
-      --success: #10B981;
-      --warning: #F59E0B;
-
-      --font-display: 'Cormorant Garamond', Georgia, serif;
-      --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      --font-mono: 'Courier New', monospace;
-
-      --spacing-xs: 0.5rem;
-      --spacing-sm: 1rem;
-      --spacing-md: 1.5rem;
-      --spacing-lg: 2rem;
-      --spacing-xl: 3rem;
-      --spacing-2xl: 4rem;
-
-      --radius: 8px;
-      --radius-lg: 12px;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: var(--font-body);
-      font-size: 16px;
-      line-height: 1.6;
-      color: var(--text);
-      background: var(--light);
-      overflow-x: hidden;
-    }
-
-    /* ==================== STICKY HEADER WITH COUNTDOWN ==================== */
-    .sticky-header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--teal) 100%);
-      color: white;
-      padding: var(--spacing-sm);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .sticky-header-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--spacing-md);
-      flex-wrap: wrap;
-    }
-
-    .logo-text {
-      font-size: 14px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      flex-shrink: 0;
-    }
-
-    .countdown-badge {
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: var(--radius);
-      padding: var(--spacing-xs) var(--spacing-md);
-      font-size: 13px;
-      font-weight: 600;
-      flex-grow: 1;
-    }
-
-    .countdown-value {
-      font-weight: 700;
-      font-size: 14px;
-      color: var(--mint);
-    }
-
-    .sticky-register-btn {
-      background: var(--mint);
-      color: var(--primary);
-      border: none;
-      padding: var(--spacing-xs) var(--spacing-lg);
-      border-radius: var(--radius);
-      font-weight: 600;
-      font-size: 13px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      white-space: nowrap;
-      flex-shrink: 0;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .sticky-register-btn:hover {
-      background: white;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-    }
-
-    /* ==================== HERO SECTION ==================== */
-    .hero {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--teal) 100%);
-      color: white;
-      padding: var(--spacing-2xl) var(--spacing-lg);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 20% 50%, rgba(61, 190, 140, 0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 80%, rgba(200, 168, 75, 0.05) 0%, transparent 50%);
-      pointer-events: none;
-    }
-
-    .hero-content {
-      max-width: 900px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-tag {
-      display: inline-block;
-      background: rgba(255,255,255,0.2);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 20px;
-      padding: var(--spacing-xs) var(--spacing-md);
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: var(--spacing-md);
-    }
-
-    .hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      font-weight: 400;
-      line-height: 1.1;
-      margin-bottom: var(--spacing-md);
-      letter-spacing: -1px;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--mint);
-      font-weight: 500;
-    }
-
-    .hero-subtitle {
-      font-size: 18px;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.95);
-      margin-bottom: var(--spacing-xl);
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .hero-cta-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--spacing-md);
-      justify-content: center;
-      margin-bottom: var(--spacing-xl);
-    }
-
-    .cta-primary {
-      background: var(--mint);
-      color: var(--primary);
-      border: none;
-      padding: var(--spacing-md) var(--spacing-xl);
-      border-radius: var(--radius);
-      font-weight: 600;
-      font-size: 16px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 16px rgba(61, 190, 140, 0.3);
-    }
-
-    .cta-primary:hover {
-      background: white;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-    }
-
-    .cta-secondary {
-      background: transparent;
-      color: white;
-      border: 2px solid white;
-      padding: calc(var(--spacing-md) - 2px) calc(var(--spacing-xl) - 2px);
-      border-radius: var(--radius);
-      font-weight: 600;
-      font-size: 16px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .cta-secondary:hover {
-      background: white;
-      color: var(--primary);
-    }
-
-    .hero-countdown {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: var(--radius-lg);
-      padding: var(--spacing-lg);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .countdown-title {
-      font-size: 13px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: rgba(255,255,255,0.8);
-      margin-bottom: var(--spacing-sm);
-    }
-
-    .countdown-timer {
-      display: flex;
-      justify-content: center;
-      gap: var(--spacing-md);
-      font-family: var(--font-mono);
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--mint);
-      margin-bottom: var(--spacing-md);
-    }
-
-    .countdown-unit {
-      text-align: center;
-    }
-
-    .countdown-unit-label {
-      font-size: 11px;
-      color: rgba(255,255,255,0.7);
-      margin-top: var(--spacing-xs);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 600;
-    }
-
-    .countdown-price {
-      font-size: 18px;
-      font-weight: 600;
-      margin-top: var(--spacing-md);
-      padding-top: var(--spacing-md);
-      border-top: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .countdown-price strong {
-      color: var(--mint);
-      font-size: 20px;
-    }
-
-    /* ==================== SOCIAL PROOF SECTION ==================== */
-    .social-proof {
-      background: white;
-      padding: var(--spacing-xl) var(--spacing-lg);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .social-proof-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--spacing-xl);
-      justify-content: space-around;
-      align-items: center;
-    }
-
-    .proof-stat {
-      text-align: center;
-    }
-
-    .proof-number {
-      font-family: var(--font-display);
-      font-size: 48px;
-      font-weight: 400;
-      color: var(--primary);
-      line-height: 1;
-      margin-bottom: var(--spacing-xs);
-    }
-
-    .proof-label {
-      font-size: 13px;
-      color: var(--text-light);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* ==================== MAIN CONTAINER ==================== */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 var(--spacing-lg);
-    }
-
-    /* ==================== SECTION STYLES ==================== */
-    section {
-      padding: var(--spacing-2xl) var(--spacing-lg);
-    }
-
-    section h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 400;
-      line-height: 1.2;
-      margin-bottom: var(--spacing-xl);
-      text-align: center;
-      letter-spacing: -0.5px;
-    }
-
-    section h3 {
-      font-family: var(--font-display);
-      font-size: 24px;
-      font-weight: 400;
-      margin-bottom: var(--spacing-md);
-      color: var(--primary);
-    }
-
-    /* ==================== WHY A-ISPC SECTION ==================== */
-    .why-section {
-      background: var(--light);
-    }
-
-    .benefit-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: var(--spacing-lg);
-      margin-top: var(--spacing-xl);
-    }
-
-    .benefit-card {
-      background: white;
-      padding: var(--spacing-lg);
-      border-radius: var(--radius-lg);
-      border-left: 4px solid var(--teal);
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-
-    .benefit-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-    }
-
-    .benefit-icon {
-      font-size: 32px;
-      margin-bottom: var(--spacing-md);
-      display: block;
-    }
-
-    .benefit-card h4 {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: var(--spacing-sm);
-      color: var(--text);
-    }
-
-    .benefit-card p {
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--text-light);
-    }
-
-    /* ==================== TIMELINE SECTION ==================== */
-    .timeline-section {
-      background: white;
-    }
-
-    .timeline {
-      position: relative;
-      margin-top: var(--spacing-xl);
-      padding-left: var(--spacing-lg);
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--teal), var(--mint));
-    }
-
-    .timeline-item {
-      margin-bottom: var(--spacing-xl);
-      position: relative;
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -16px;
-      top: 2px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--primary);
-      border: 3px solid white;
-      box-shadow: 0 0 0 2px var(--teal);
-    }
-
-    .timeline-date {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--teal);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: var(--spacing-xs);
-    }
-
-    .timeline-event {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: var(--spacing-xs);
-    }
-
-    .timeline-desc {
-      font-size: 14px;
-      color: var(--text-light);
-      line-height: 1.6;
-    }
-
-    /* ==================== PRICING SECTION ==================== */
-    .pricing-section {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--teal) 100%);
-      color: white;
-    }
-
-    .pricing-section h2 {
-      color: white;
-    }
-
-    .pricing-intro {
-      text-align: center;
-      margin-bottom: var(--spacing-xl);
-      font-size: 16px;
-      line-height: 1.7;
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: var(--spacing-lg);
-      margin-top: var(--spacing-xl);
-    }
-
-    .pricing-card {
-      background: rgba(255,255,255,0.95);
-      color: var(--text);
-      border-radius: var(--radius-lg);
-      padding: var(--spacing-xl);
-      text-align: center;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .pricing-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--mint), var(--gold));
-    }
-
-    .pricing-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.2);
-    }
-
-    .pricing-badge {
-      display: inline-block;
-      background: var(--success);
-      color: white;
-      padding: var(--spacing-xs) var(--spacing-md);
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: var(--spacing-md);
-    }
-
-    .pricing-division {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--teal);
-      margin-bottom: var(--spacing-xs);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .pricing-title {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: var(--spacing-md);
-    }
-
-    .pricing-early {
-      font-size: 13px;
-      color: var(--text-light);
-      margin-bottom: var(--spacing-md);
-    }
-
-    .pricing-amount {
-      font-size: 48px;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: var(--spacing-xs);
-      line-height: 1;
-    }
-
-    .pricing-period {
-      font-size: 13px;
-      color: var(--text-light);
-      margin-bottom: var(--spacing-lg);
-    }
-
-    .pricing-list {
-      text-align: left;
-      margin: var(--spacing-lg) 0;
-      font-size: 14px;
-    }
-
-    .pricing-list li {
-      list-style: none;
-      margin-bottom: var(--spacing-sm);
-      padding-left: var(--spacing-md);
-      position: relative;
-      color: var(--text);
-    }
-
-    .pricing-list li::before {
-      content: '✓';
-      position: absolute;
-      left: 0;
-      color: var(--success);
-      font-weight: 700;
-    }
-
-    .pricing-cta {
-      background: linear-gradient(135deg, var(--primary), var(--teal));
-      color: white;
-      border: none;
-      padding: var(--spacing-md) var(--spacing-lg);
-      border-radius: var(--radius);
-      font-weight: 600;
-      font-size: 15px;
-      cursor: pointer;
-      width: 100%;
-      transition: all 0.3s ease;
-      margin-top: var(--spacing-lg);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .pricing-cta:hover {
-      transform: scale(1.02);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-    }
-
-    .pricing-note {
-      font-size: 12px;
-      color: var(--text-light);
-      margin-top: var(--spacing-md);
-    }
-
-    /* ==================== JUDGES SECTION ==================== */
-    .judges-section {
-      background: white;
-    }
-
-    .judges-intro {
-      text-align: center;
-      max-width: 600px;
-      margin: 0 auto var(--spacing-xl);
-      font-size: 16px;
-      line-height: 1.7;
-      color: var(--text-light);
-    }
-
-    .judges-tier-label {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--teal);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: var(--spacing-md);
-      margin-top: var(--spacing-xl);
-    }
-
-    .judges-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: var(--spacing-lg);
-      margin-top: var(--spacing-xl);
-    }
-
-    .judge-card {
-      text-align: center;
-      background: var(--light);
-      border-radius: var(--radius-lg);
-      padding: var(--spacing-lg);
-      transition: all 0.3s ease;
-    }
-
-    .judge-card:hover {
-      background: white;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-      transform: translateY(-4px);
-    }
-
-    .judge-photo {
-      width: 100%;
-      max-width: 150px;
-      height: 150px;
-      border-radius: var(--radius-lg);
-      object-fit: cover;
-      margin: 0 auto var(--spacing-md);
-      border: 2px solid white;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .judge-name {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: var(--spacing-xs);
-    }
-
-    .judge-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--teal);
-      margin-bottom: var(--spacing-sm);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .judge-affiliation {
-      font-size: 13px;
-      color: var(--text-light);
-      line-height: 1.5;
-    }
-
-    .judge-badge {
-      display: inline-block;
-      background: var(--success);
-      color: white;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 4px;
-      margin-top: var(--spacing-sm);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* ==================== RESOURCES SECTION ==================== */
-    .resources-section {
-      background: var(--light);
-    }
-
-    .resources-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: var(--spacing-lg);
-      margin-top: var(--spacing-xl);
-    }
-
-    .resource-card {
-      background: white;
-      border-radius: var(--radius-lg);
-      padding: var(--spacing-lg);
-      border-top: 4px solid var(--gold);
-      transition: all 0.3s ease;
-    }
-
-    .resource-card:hover {
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-      transform: translateY(-4px);
-    }
-
-    .resource-card h4 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: var(--spacing-md);
-      color: var(--text);
-    }
-
-    .resource-card p {
-      font-size: 14px;
-      color: var(--text-light);
-      margin-bottom: var(--spacing-md);
-      line-height: 1.6;
-    }
-
-    .resource-link {
-      color: var(--teal);
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: var(--spacing-xs);
-      transition: all 0.3s ease;
-    }
-
-    .resource-link:hover {
-      gap: var(--spacing-sm);
-      color: var(--primary);
-    }
-
-    /* ==================== FAQ SECTION ==================== */
-    .faq-section {
-      background: white;
-    }
-
-    .faq-container {
-      max-width: 800px;
-      margin: 0 auto;
-      margin-top: var(--spacing-xl);
-    }
-
-    .faq-item {
-      border-bottom: 1px solid var(--border);
-      padding: var(--spacing-lg) 0;
-    }
-
-    .faq-item:last-child {
-      border-bottom: none;
-    }
-
-    .faq-question {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-md);
-      transition: color 0.3s ease;
-    }
-
-    .faq-question:hover {
-      color: var(--teal);
-    }
-
-    .faq-toggle {
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: var(--light);
-      color: var(--primary);
-      font-weight: 700;
-      transition: all 0.3s ease;
-      flex-shrink: 0;
-    }
-
-    .faq-item.active .faq-toggle {
-      background: var(--teal);
-      color: white;
-      transform: rotate(180deg);
-    }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-      font-size: 14px;
-      color: var(--text-light);
-      line-height: 1.7;
-      margin-top: var(--spacing-md);
-    }
-
-    .faq-item.active .faq-answer {
-      max-height: 500px;
-    }
-
-    /* ==================== FOOTER ==================== */
-    footer {
-      background: var(--primary);
-      color: white;
-      padding: var(--spacing-xl) var(--spacing-lg);
-      text-align: center;
-      font-size: 14px;
-    }
-
-    footer a {
-      color: var(--mint);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    footer a:hover {
-      color: white;
-    }
-
-    /* ==================== RESPONSIVE ==================== */
-    @media (max-width: 768px) {
-      .sticky-header-content {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-      }
-
-      .countdown-badge {
-        flex-grow: unset;
-      }
-
-      .sticky-register-btn {
-        width: 100%;
-      }
-
-      .hero {
-        padding: var(--spacing-xl) var(--spacing-md);
-      }
-
-      .hero h1 {
-        font-size: 2rem;
-      }
-
-      .countdown-timer {
-        font-size: 18px;
-        gap: var(--spacing-sm);
-      }
-
-      .social-proof-content {
-        gap: var(--spacing-lg);
-      }
-
-      .proof-number {
-        font-size: 36px;
-      }
-
-      .pricing-amount {
-        font-size: 36px;
-      }
-
-      section {
-        padding: var(--spacing-xl) var(--spacing-md);
-      }
-
-      .judges-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      }
-    }
-
-    @media (max-width: 480px) {
-      :root {
-        --spacing-xl: 2rem;
-        --spacing-2xl: 2.5rem;
-      }
-
-      .hero h1 {
-        font-size: 1.5rem;
-      }
-
-      .countdown-badge {
-        font-size: 12px;
-        padding: var(--spacing-xs) var(--spacing-sm);
-      }
-
-      .countdown-timer {
-        font-size: 16px;
-      }
-
-      .pricing-card {
-        padding: var(--spacing-lg);
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A-ISPC 2026 — International AI-Assisted Science Project Competition | Finals Hong Kong or Bangkok, December 2026</title>
+<meta name="description" content="A-ISPC 2026: the world's first global research competition where secondary students use AI as a genuine research tool. Early bird $70 ends September 30. Finals in Hong Kong or Bangkok, December 4–6, 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#1A3C34;
+    --forest-deep:#0E211C;
+    --teal:#0D7A5F;
+    --mint:#3DBE8C;
+    --gold:#C8A84B;
+    --cream:#F6F4EC;
+    --paper:#FDFCF8;
+    --ink:#12211D;
+    --ink-soft:#4A5D57;
+    --line:rgba(18,33,29,0.12);
+    --line-light:rgba(255,255,255,0.14);
+    --radius:14px;
+    --shadow:0 20px 50px -20px rgba(14,33,28,0.35);
+    --serif:'Cormorant Garamond', Georgia, serif;
+    --sans:'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono:'DM Mono', 'SF Mono', monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  section{position:relative;}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:600;letter-spacing:-0.01em;color:var(--forest-deep);}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--teal);
+    display:flex;align-items:center;gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 4px rgba(61,190,140,0.18);}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:var(--sans);font-weight:600;font-size:15px;
+    padding:15px 30px;border-radius:999px;border:1px solid transparent;
+    cursor:pointer;transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    white-space:nowrap;
+  }
+  .btn-gold{background:var(--gold);color:var(--forest-deep);box-shadow:0 10px 24px -10px rgba(200,168,75,0.7);}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 16px 30px -12px rgba(200,168,75,0.85);}
+  .btn-outline{border-color:rgba(255,255,255,0.35);color:#fff;}
+  .btn-outline:hover{background:rgba(255,255,255,0.1);transform:translateY(-2px);}
+  .btn-ghost{border-color:var(--line);color:var(--forest-deep);}
+  .btn-ghost:hover{background:var(--forest-deep);color:#fff;transform:translateY(-2px);}
+  .btn-block{width:100%;}
+
+  /* ===== PROMO BAR ===== */
+  .promo-bar{
+    background:var(--forest-deep);color:#fff;font-family:var(--mono);
+    font-size:12.5px;letter-spacing:0.02em;
+  }
+  .promo-bar .wrap{display:flex;align-items:center;justify-content:center;gap:10px;padding:9px 24px;flex-wrap:wrap;text-align:center;}
+  .promo-bar b{color:var(--mint);font-weight:600;}
+  .promo-bar a{text-decoration:underline;text-underline-offset:3px;color:var(--gold);}
+
+  /* ===== NAV ===== */
+  header.site{
+    position:sticky;top:0;z-index:60;
+    background:rgba(253,252,248,0.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1180px;margin:0 auto;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:700;font-size:21px;color:var(--forest-deep);}
+  .brand .mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(155deg,var(--forest),var(--teal));display:flex;align-items:center;justify-content:center;color:var(--mint);font-family:var(--mono);font-size:13px;font-weight:700;}
+  .nav-links{display:flex;gap:30px;align-items:center;font-size:14.5px;font-weight:500;color:var(--ink-soft);}
+  .nav-links a:hover{color:var(--forest-deep);}
+  .nav-cta{display:flex;align-items:center;gap:14px;}
+  .burger{display:none;}
+  @media(max-width:880px){
+    .nav-links{display:none;}
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    background:
+      radial-gradient(1100px 520px at 82% -10%, rgba(61,190,140,0.28), transparent 60%),
+      radial-gradient(700px 400px at 8% 110%, rgba(200,168,75,0.18), transparent 60%),
+      linear-gradient(175deg, var(--forest-deep), var(--forest) 65%, #163329);
+    color:#fff;overflow:hidden;
+  }
+  .hero .wrap{padding:76px 24px 0;position:relative;z-index:2;}
+  .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;padding-bottom:60px;}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:36px;}}
+  .hero .eyebrow{color:var(--mint);}
+  .hero h1{font-size:clamp(38px,5.4vw,64px);line-height:1.03;color:#fff;font-weight:600;margin-bottom:22px;}
+  .hero h1 em{font-style:italic;color:var(--mint);}
+  .hero p.lede{font-size:18px;color:rgba(255,255,255,0.82);max-width:520px;margin-bottom:30px;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:34px;}
+  .hero-stats{display:flex;gap:34px;flex-wrap:wrap;padding-top:26px;border-top:1px solid var(--line-light);}
+  .hero-stats .stat b{display:block;font-family:var(--serif);font-size:28px;color:var(--gold);}
+  .hero-stats .stat span{font-size:12.5px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.06em;}
+
+  /* research pipeline signature graphic */
+  .pipeline-card{
+    background:rgba(255,255,255,0.05);border:1px solid var(--line-light);
+    border-radius:20px;padding:28px 26px;backdrop-filter:blur(6px);
+  }
+  .pipeline-card .cap{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mint);margin-bottom:18px;}
+  .pipeline{display:flex;flex-direction:column;gap:0;}
+  .pl-step{display:flex;gap:14px;padding:14px 0;position:relative;}
+  .pl-step:not(:last-child)::after{content:'';position:absolute;left:15px;top:44px;bottom:-4px;width:1px;background:linear-gradient(var(--mint),transparent);}
+  .pl-dot{width:32px;height:32px;border-radius:50%;background:rgba(61,190,140,0.14);border:1px solid rgba(61,190,140,0.5);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;color:var(--mint);flex-shrink:0;}
+  .pl-step h4{color:#fff;font-family:var(--sans);font-weight:600;font-size:15px;margin-bottom:3px;}
+  .pl-step p{color:rgba(255,255,255,0.62);font-size:13.5px;}
+  .pl-flag{margin-top:14px;padding:12px 14px;background:rgba(200,168,75,0.12);border:1px solid rgba(200,168,75,0.35);border-radius:10px;font-size:12.5px;color:var(--gold);}
+
+  /* countdown */
+  .countdown-strip{background:var(--forest-deep);border-top:1px solid var(--line-light);}
+  .countdown-strip .wrap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;padding:22px 24px;}
+  .cd-label{color:rgba(255,255,255,0.75);font-size:14px;}
+  .cd-label b{color:var(--gold);}
+  .cd-timer{display:flex;gap:10px;}
+  .cd-unit{background:rgba(255,255,255,0.06);border:1px solid var(--line-light);border-radius:10px;padding:9px 14px;min-width:64px;text-align:center;}
+  .cd-unit b{display:block;font-family:var(--mono);font-size:21px;color:#fff;}
+  .cd-unit span{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);}
+
+  /* ===== SECTION HEADERS ===== */
+  .sec-head{max-width:640px;margin-bottom:46px;}
+  .sec-head h2{font-size:clamp(28px,3.4vw,42px);line-height:1.1;}
+  .sec-head p{color:var(--ink-soft);font-size:16.5px;margin-top:12px;}
+  .section-pad{padding:88px 0;}
+  .section-pad.tight{padding:64px 0;}
+  .bg-cream{background:var(--cream);}
+  .bg-forest{background:var(--forest-deep);color:#fff;}
+  .bg-forest h2, .bg-forest h3, .bg-forest h4{color:#fff;}
+
+  /* ===== WHY GRID (chegg-style card grid) ===== */
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  @media(max-width:880px){.why-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.why-grid{grid-template-columns:1fr;}}
+  .why-card{
+    background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px 24px;transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .why-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:transparent;}
+  .why-icon{width:44px;height:44px;border-radius:11px;background:linear-gradient(155deg,var(--teal),var(--forest));display:flex;align-items:center;justify-content:center;color:var(--mint);font-size:19px;margin-bottom:16px;}
+  .why-card h3{font-size:19px;margin-bottom:8px;font-family:var(--sans);font-weight:700;color:var(--forest-deep);}
+  .why-card p{font-size:14.5px;color:var(--ink-soft);}
+
+  /* ===== TIMELINE ===== */
+  .timeline{border-left:2px solid var(--line);margin-left:6px;}
+  .tl-item{position:relative;padding:0 0 40px 36px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{content:'';position:absolute;left:-7px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:3px solid var(--paper);box-shadow:0 0 0 2px var(--gold);}
+  .tl-item.done::before{background:var(--mint);box-shadow:0 0 0 2px var(--mint);}
+  .tl-date{font-family:var(--mono);font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--teal);margin-bottom:6px;}
+  .tl-item h4{font-size:20px;margin-bottom:6px;}
+  .tl-item p{color:var(--ink-soft);font-size:15px;max-width:560px;}
+  .tl-badge{display:inline-block;margin-top:10px;font-family:var(--mono);font-size:11px;padding:4px 10px;border-radius:999px;background:rgba(200,168,75,0.14);color:#8a6d1f;border:1px solid rgba(200,168,75,0.4);}
+
+  /* ===== PRICING ===== */
+  .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+  @media(max-width:800px){.pricing-grid{grid-template-columns:1fr;}}
+  .price-card{
+    background:var(--paper);border:1px solid var(--line);border-radius:20px;
+    padding:34px 30px;position:relative;overflow:hidden;
+  }
+  .price-card.senior{border-color:var(--gold);box-shadow:0 26px 50px -22px rgba(200,168,75,0.4);}
+  .price-tag{position:absolute;top:0;right:0;background:var(--gold);color:var(--forest-deep);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:0.06em;padding:7px 16px;border-radius:0 0 0 14px;}
+  .price-card .division{font-family:var(--mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px;}
+  .price-card h3{font-size:26px;margin-bottom:4px;}
+  .price-card .ages{color:var(--ink-soft);font-size:14px;margin-bottom:22px;}
+  .price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:4px;}
+  .price-now{font-family:var(--serif);font-size:46px;color:var(--forest-deep);font-weight:700;}
+  .price-was{font-size:16px;color:#a3a3a3;text-decoration:line-through;}
+  .price-per{color:var(--ink-soft);font-size:13.5px;margin-bottom:22px;}
+  .price-list{margin:22px 0 26px;display:flex;flex-direction:column;gap:11px;}
+  .price-list li{display:flex;gap:10px;font-size:14.5px;color:var(--ink);}
+  .price-list li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;}
+  .price-note{margin-top:16px;font-size:12.5px;color:var(--ink-soft);text-align:center;}
+
+  /* ===== JUDGES ===== */
+  .judges-tier{margin-bottom:44px;}
+  .judges-tier:last-child{margin-bottom:0;}
+  .tier-label{font-family:var(--mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mint);margin-bottom:20px;}
+  .judges-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+  @media(max-width:880px){.judges-grid{grid-template-columns:1fr;}}
+  .judge-card{
+    background:rgba(255,255,255,0.05);border:1px solid var(--line-light);border-radius:16px;
+    padding:22px;display:flex;gap:16px;align-items:flex-start;
+  }
+  .judge-avatar{width:58px;height:58px;border-radius:50%;background:linear-gradient(155deg,var(--mint),var(--teal));display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;font-size:20px;color:var(--forest-deep);flex-shrink:0;}
+  .judge-name{font-family:var(--sans);font-weight:700;font-size:16px;color:#fff;}
+  .judge-role{font-size:13px;color:var(--gold);margin:2px 0 6px;}
+  .judge-org{font-size:13px;color:rgba(255,255,255,0.6);}
+  .judges-tier .judges-grid.three{grid-template-columns:repeat(3,1fr);}
+  @media(max-width:880px){.judges-tier .judges-grid.three{grid-template-columns:1fr;}}
+
+  /* ===== PREP RESOURCES ===== */
+  .prep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:880px){.prep-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.prep-grid{grid-template-columns:1fr;}}
+  .prep-card{background:var(--cream);border-radius:var(--radius);padding:24px;border:1px solid var(--line);transition:border-color .2s ease, transform .2s ease;}
+  .prep-card:hover{transform:translateY(-3px);border-color:var(--teal);}
+  .prep-card .why-icon{background:linear-gradient(155deg,var(--gold),#a5822f);color:#fff;}
+  .prep-card h3{font-size:16.5px;margin-bottom:6px;}
+  .prep-card p{font-size:13.5px;color:var(--ink-soft);margin-bottom:14px;}
+  .prep-card a{font-size:13.5px;font-weight:700;color:var(--teal);}
+  .prep-card a:hover{text-decoration:underline;}
+
+  /* ===== CROSS-SELL ===== */
+  .cross-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:880px){.cross-grid{grid-template-columns:1fr;}}
+  .cross-card{
+    border-radius:var(--radius);padding:26px;color:#fff;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;justify-content:flex-end;min-height:190px;
+  }
+  .cross-card .eyebrow{color:rgba(255,255,255,0.75);}
+  .cross-card .eyebrow::before{background:#fff;}
+  .cross-card h3{color:#fff;font-size:21px;margin-bottom:6px;}
+  .cross-card p{color:rgba(255,255,255,0.82);font-size:13.5px;margin-bottom:14px;}
+  .cross-card a{font-size:13px;font-weight:700;text-decoration:underline;text-underline-offset:3px;}
+  .cross-1{background:linear-gradient(150deg,#0D7A5F,#1A3C34);}
+  .cross-2{background:linear-gradient(150deg,#C8A84B,#8a6d1f);}
+  .cross-3{background:linear-gradient(150deg,#2A3B57,#12211D);}
+
+  /* ===== FAQ ===== */
+  .faq-list{max-width:760px;}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{
+    display:flex;align-items:center;justify-content:space-between;gap:20px;
+    padding:22px 4px;cursor:pointer;font-weight:700;font-size:16px;color:var(--forest-deep);
+  }
+  .faq-q .icon{font-family:var(--mono);font-size:18px;color:var(--teal);transition:transform .25s ease;flex-shrink:0;}
+  .faq-item.open .faq-q .icon{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+  .faq-a p{padding:0 4px 22px;color:var(--ink-soft);font-size:14.5px;max-width:680px;}
+
+  /* ===== FINAL CTA ===== */
+  .final-cta{
+    background:linear-gradient(160deg,var(--forest-deep),var(--forest));
+    color:#fff;border-radius:26px;padding:56px 44px;text-align:center;
+    position:relative;overflow:hidden;
+  }
+  .final-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(500px 260px at 50% 0%, rgba(61,190,140,0.28), transparent 70%);}
+  .final-cta *{position:relative;z-index:1;}
+  .final-cta h2{color:#fff;font-size:clamp(28px,4vw,42px);margin-bottom:14px;}
+  .final-cta p{color:rgba(255,255,255,0.78);max-width:520px;margin:0 auto 30px;font-size:16px;}
+  .final-cta .hero-ctas{justify-content:center;}
+
+  /* ===== FOOTER ===== */
+  footer{background:var(--forest-deep);color:rgba(255,255,255,0.6);padding:54px 0 28px;font-size:13.5px;}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;padding-bottom:36px;border-bottom:1px solid var(--line-light);margin-bottom:24px;}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr;}}
+  .foot-grid h5{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:14px;}
+  .foot-grid li{margin-bottom:9px;}
+  .foot-grid a:hover{color:#fff;}
+  .foot-brand .brand{color:#fff;}
+  .foot-brand p{margin-top:14px;max-width:280px;color:rgba(255,255,255,0.5);}
+  .foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+
+  /* sticky mobile cta */
+  .sticky-cta{
+    position:fixed;bottom:0;left:0;right:0;z-index:70;
+    background:var(--forest-deep);border-top:1px solid var(--line-light);
+    padding:12px 16px;display:none;align-items:center;justify-content:space-between;gap:12px;
+  }
+  @media(max-width:640px){.sticky-cta{display:flex;} body{padding-bottom:70px;}}
+  .sticky-cta .lbl{color:#fff;font-size:13px;}
+  .sticky-cta .lbl b{color:var(--gold);display:block;font-size:15px;}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+</style>
 </head>
 <body>
 
-  <!-- STICKY HEADER WITH COUNTDOWN -->
-  <div class="sticky-header">
-    <div class="sticky-header-content">
-      <div class="logo-text">🔬 A-ISPC 2026</div>
-      <div class="countdown-badge">
-        Early Bird: <span class="countdown-value">$70</span> (Ends July 31)
-      </div>
-      <button class="sticky-register-btn" onclick="scrollToRegister()">Register Now</button>
-    </div>
+<div class="promo-bar">
+  <div class="wrap">
+    🔥 Early Bird pricing ends <b>September 30</b> — save $10 per team · <a href="#pricing">Register now →</a>
   </div>
+</div>
 
-  <!-- HERO SECTION -->
-  <div class="hero">
-    <div class="hero-content">
-      <span class="hero-tag">FIRST GLOBAL SCIENCE COMPETITION</span>
-      <h1>Science × <em>AI</em> Competition</h1>
-      <p class="hero-subtitle">
-        The world's first international secondary school competition where students use AI as a genuine research tool. Conduct original investigations. Use AI to accelerate discovery. Present at finals in Hong Kong.
-      </p>
-      
-      <div class="hero-cta-group">
-        <button class="cta-primary" onclick="scrollToRegister()">Register Your Team</button>
-        <button class="cta-secondary" onclick="document.getElementById('why').scrollIntoView({behavior: 'smooth'})">Learn More</button>
-      </div>
-
-      <div class="hero-countdown">
-        <div class="countdown-title">Early Bird Deadline</div>
-        <div class="countdown-timer">
-          <div class="countdown-unit">
-            <div id="days">26</div>
-            <div class="countdown-unit-label">Days</div>
-          </div>
-          <div class="countdown-unit">:</div>
-          <div class="countdown-unit">
-            <div id="hours">14</div>
-            <div class="countdown-unit-label">Hours</div>
-          </div>
-          <div class="countdown-unit">:</div>
-          <div class="countdown-unit">
-            <div id="minutes">32</div>
-            <div class="countdown-unit-label">Minutes</div>
-          </div>
-        </div>
-        <div class="countdown-price">
-          Register Before July 31 &nbsp;→&nbsp; <strong>$70</strong> (Then $80)
-        </div>
-      </div>
+<header class="site">
+  <nav>
+    <a href="#" class="brand"><span class="mark">AI</span><span>A-ISPC 2026</span></a>
+    <div class="nav-links">
+      <a href="#why">Why A-ISPC</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#judges">Judges</a>
+      <a href="#prep">Prepare</a>
+      <a href="#faq">FAQ</a>
     </div>
-  </div>
-
-  <!-- SOCIAL PROOF -->
-  <div class="social-proof">
-    <div class="social-proof-content">
-      <div class="proof-stat">
-        <div class="proof-number">50+</div>
-        <div class="proof-label">Countries Via Hizmet Network</div>
-      </div>
-      <div class="proof-stat">
-        <div class="proof-number">2,000+</div>
-        <div class="proof-label">Students Registered (Target)</div>
-      </div>
-      <div class="proof-stat">
-        <div class="proof-number">1st</div>
-        <div class="proof-label">Global Science × AI Competition</div>
-      </div>
+    <div class="nav-cta">
+      <a href="#pricing" class="btn btn-gold">Register Your Team</a>
     </div>
-  </div>
+  </nav>
+</header>
 
-  <!-- WHY A-ISPC SECTION -->
-  <section id="why">
-    <div class="container">
-      <h2>Why A-ISPC?</h2>
-      <div class="benefit-grid">
-        <div class="benefit-card">
-          <span class="benefit-icon">🔬</span>
-          <h4>Real Research Counts</h4>
-          <p>Conduct original scientific investigations that matter. You're not solving textbook problems — you're doing genuine science.</p>
-        </div>
-        <div class="benefit-card">
-          <span class="benefit-icon">🤖</span>
-          <h4>AI as Your Tool</h4>
-          <p>Use AI meaningfully in your research — data analysis, literature synthesis, hypothesis refinement. The future of science happens here.</p>
-        </div>
-        <div class="benefit-card">
-          <span class="benefit-icon">🌏</span>
-          <h4>Global Finalist Network</h4>
-          <p>Connect with student researchers from 50+ countries. Present at our hybrid finals in Hong Kong — in person or remote.</p>
-        </div>
-        <div class="benefit-card">
-          <span class="benefit-icon">🏆</span>
-          <h4>Expert Judging</h4>
-          <p>Evaluated by international scholars and Olympiad mentors from Kazakhstan, Hong Kong, and Asia-Pacific. Real credibility.</p>
-        </div>
-        <div class="benefit-card">
-          <span class="benefit-icon">📜</span>
-          <h4>University Credential</h4>
-          <p>Finalist certificates carry weight. Add this to university applications, portfolios, and your scientific CV.</p>
-        </div>
-        <div class="benefit-card">
-          <span class="benefit-icon">💡</span>
-          <h4>No Travel Required</h4>
-          <p>Hybrid finals mean you can present live from Hong Kong or via video link. Geography is not a barrier.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TIMELINE SECTION -->
-  <section class="timeline-section">
-    <div class="container">
-      <h2>The Road to Hong Kong</h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-date">Now – July 31</div>
-          <div class="timeline-event">Early Bird Registration</div>
-          <div class="timeline-desc">Register your team and lock in $70 pricing. Early bird ends July 31 — after that, price rises to $80.</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-date">August 1 – September 30</div>
-          <div class="timeline-event">Standard Registration & Research Phase</div>
-          <div class="timeline-desc">Teams conduct their original research, integrate AI tools, and prepare their project reports.</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-date">October 2026</div>
-          <div class="timeline-event">Online Preliminary Round</div>
-          <div class="timeline-desc">Submit your full project report and 3-minute presentation video. Judged on scientific rigour and AI integration.</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-date">November 15</div>
-          <div class="timeline-event">Results & Finalist Notification</div>
-          <div class="timeline-desc">Qualifying teams invited to present at the Hong Kong Finals in December. Remote participation fully supported.</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-date">December 11–13</div>
-          <div class="timeline-event">🇭🇰 International Finals in Hong Kong</div>
-          <div class="timeline-desc">Hybrid presentation event at Cyberport. Live presentations, expert panel feedback, awards ceremony, and celebration of scientific excellence.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRICING SECTION -->
-  <section id="register" class="pricing-section">
-    <div class="container">
-      <h2>Registration & Pricing</h2>
-      <div class="pricing-intro">
-        Teams of 2–3 students from the same school, plus one mentor teacher. Early bird discount ends July 31 — register now to lock in $70.
-      </div>
-
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <div class="pricing-badge">🔥 EARLY BIRD</div>
-          <div class="pricing-division">Junior Division</div>
-          <div class="pricing-title">Ages 12–15</div>
-          <div class="pricing-early">Until July 31</div>
-          <div class="pricing-amount">$70</div>
-          <div class="pricing-period">Per Team of 2–3</div>
-          <ul class="pricing-list">
-            <li>Grades 7–10 or equivalent</li>
-            <li>4-month research phase</li>
-            <li>Online qualifying round</li>
-            <li>Hybrid finals (HK or remote)</li>
-            <li>Certificate of participation</li>
-          </ul>
-          <button class="pricing-cta" onclick="registerTeam('junior')">Register Junior Team</button>
-          <div class="pricing-note">After July 31: $80</div>
-        </div>
-
-        <div class="pricing-card">
-          <div class="pricing-badge">🔥 EARLY BIRD</div>
-          <div class="pricing-division">Senior Division</div>
-          <div class="pricing-title">Ages 16–18</div>
-          <div class="pricing-early">Until July 31</div>
-          <div class="pricing-amount">$70</div>
-          <div class="pricing-period">Per Team of 2–3</div>
-          <ul class="pricing-list">
-            <li>Grades 11–13 or equivalent</li>
-            <li>4-month research phase</li>
-            <li>Online qualifying round</li>
-            <li>Hybrid finals (HK or remote)</li>
-            <li>Certificate + University credential</li>
-          </ul>
-          <button class="pricing-cta" onclick="registerTeam('senior')">Register Senior Team</button>
-          <div class="pricing-note">After July 31: $80</div>
-        </div>
-      </div>
-
-      <div style="text-align: center; margin-top: var(--spacing-xl); color: rgba(255,255,255,0.9); font-size: 14px;">
-        <p>All fees are in USD. Paid via Stripe. Receipt issued to mentor teacher email.</p>
-        <p style="margin-top: var(--spacing-sm); font-size: 13px; opacity: 0.8;">Schools may enter multiple teams. Each team registers and pays separately.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- JUDGES SECTION -->
-  <section class="judges-section">
-    <div class="container">
-      <h2>Meet Your Judges</h2>
-      <p class="judges-intro">
-        Your research will be evaluated by international scholars and young research leaders — scientists and educators from Asia-Pacific universities and research institutions.
-      </p>
-
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
       <div>
-        <div class="judges-tier-label">Lead Judges</div>
-        <div class="judges-grid">
-          <div class="judge-card">
-            <div class="judge-photo" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
-            <div class="judge-name">Berik Sabdenaliyev</div>
-            <div class="judge-title">Dean of Research</div>
-            <div class="judge-affiliation">
-              School of Social Sciences, Business & Law
-              <br><strong>SDU University</strong>
-            </div>
-          </div>
-
-          <div class="judge-card">
-            <div class="judge-photo" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
-            <div class="judge-name">Almat Zhailaubayev</div>
-            <div class="judge-title">VP Finance & CFO</div>
-            <div class="judge-affiliation">
-              Finance & Business Strategy
-              <br><strong>North American University</strong>
-            </div>
-          </div>
+        <div class="eyebrow">First Global Science × AI Competition</div>
+        <h1>Real research.<br>Real <em>AI</em>.<br>A stage in Hong&nbsp;Kong.</h1>
+        <p class="lede">The world's first international secondary-school competition built around genuine scientific research — where students use AI as a real research instrument, not a shortcut. Present your findings at the international finals.</p>
+        <div class="hero-ctas">
+          <a href="#pricing" class="btn btn-gold">Register Your Team — $70</a>
+          <a href="#why" class="btn btn-outline">See how it works</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b>50+</b><span>Countries via Hizmet Network</span></div>
+          <div class="stat"><b>Dec 4–6</b><span>Finals · Hong Kong or Bangkok</span></div>
+          <div class="stat"><b>1st</b><span>Global Science × AI Competition</span></div>
         </div>
       </div>
+      <div class="pipeline-card reveal">
+        <div class="cap">How a team competes</div>
+        <div class="pipeline">
+          <div class="pl-step">
+            <div class="pl-dot">01</div>
+            <div><h4>Pick a real question</h4><p>An original investigation — not a textbook exercise.</p></div>
+          </div>
+          <div class="pl-step">
+            <div class="pl-dot">02</div>
+            <div><h4>Research with AI as a tool</h4><p>Data analysis, literature synthesis, hypothesis refinement — documented and justified.</p></div>
+          </div>
+          <div class="pl-step">
+            <div class="pl-dot">03</div>
+            <div><h4>Submit report + video</h4><p>Online preliminary round in November. Judged on rigour, originality, AI integration.</p></div>
+          </div>
+          <div class="pl-step">
+            <div class="pl-dot">04</div>
+            <div><h4>Present at the finals</h4><p>Finalists present live in Hong Kong or Bangkok, December 4–6, alongside 300+ students worldwide.</p></div>
+          </div>
+        </div>
+        <div class="pl-flag">Judged 40% scientific rigour · 30% originality · 30% AI integration</div>
+      </div>
+    </div>
+  </div>
 
+  <div class="countdown-strip">
+    <div class="wrap">
+      <div class="cd-label">Early bird ends September 30 → <b>$70</b> per team, then $80</div>
+      <div class="cd-timer" id="countdown">
+        <div class="cd-unit"><b id="cd-d">--</b><span>Days</span></div>
+        <div class="cd-unit"><b id="cd-h">--</b><span>Hrs</span></div>
+        <div class="cd-unit"><b id="cd-m">--</b><span>Min</span></div>
+        <div class="cd-unit"><b id="cd-s">--</b><span>Sec</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="why">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Why A-ISPC</div>
+      <h2>Not a quiz. Not a science fair.<br>Original research, judged seriously.</h2>
+      <p>A-ISPC exists because AI changed what a 15-year-old can actually discover. We built the competition to match — and the credibility to prove it.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal"><div class="why-icon">🔬</div><h3>Real research counts</h3><p>Conduct an original scientific investigation that matters — not a solved textbook problem. Your question, your data, your findings.</p></div>
+      <div class="why-card reveal"><div class="why-icon">🤖</div><h3>AI as your instrument</h3><p>Use AI meaningfully — for data analysis, literature synthesis, hypothesis refinement. Document how, and why. This is the future of science.</p></div>
+      <div class="why-card reveal"><div class="why-icon">🌏</div><h3>A global finalist network</h3><p>Connect with student researchers from 50+ countries through our Hizmet school network. Present your work at the international finals, in person.</p></div>
+      <div class="why-card reveal"><div class="why-icon">🏆</div><h3>Judged by real credibility</h3><p>Evaluated by academic leaders and young Olympiad medalists from Kazakhstan, Hong Kong, and across Asia-Pacific.</p></div>
+      <div class="why-card reveal"><div class="why-icon">📜</div><h3>A credential that carries weight</h3><p>Finalist certificates strengthen university applications, research portfolios, and scientific CVs — not just a participation sticker.</p></div>
+      <div class="why-card reveal"><div class="why-icon">🎤</div><h3>A finals week to remember</h3><p>Hong Kong or Bangkok — December 4–6. Present alongside A-IBFC and Emerald Prize finalists in one landmark week of student achievement.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad bg-cream" id="roadmap">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">The Road to the Finals</div>
+      <h2>Six months. One research question. One stage.</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item done">
+        <div class="tl-date">Now – September 30</div>
+        <h4>Early Bird Registration</h4>
+        <p>Register your team and lock in $70 pricing before it rises to $80 on October 1.</p>
+        <span class="tl-badge">Open now</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">October – November</div>
+        <h4>Standard Registration &amp; Research Phase</h4>
+        <p>Teams conduct their original research, integrate AI tools meaningfully, and prepare their project reports.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">November 2026</div>
+        <h4>Online Preliminary Round</h4>
+        <p>Submit your full project report and a 3-minute presentation video. Judged on scientific rigour and AI integration.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Late November</div>
+        <h4>Results &amp; Finalist Notification</h4>
+        <p>Qualifying teams are invited to present at the international finals in December.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">December 4–6, 2026</div>
+        <h4>🏆 International Finals — Hong Kong or Bangkok</h4>
+        <p>Live presentations, expert panel feedback, and an awards ceremony alongside A-IBFC and Emerald Prize finalists.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Registration &amp; Pricing</div>
+      <h2>Teams of 2–3 students, one mentor teacher.</h2>
+      <p>Early bird discount ends September 30 — register now to lock in $70 per team. Schools may enter multiple teams; each registers and pays separately.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tag">Early Bird</div>
+        <div class="division">Junior Division</div>
+        <h3>Ages 12–15</h3>
+        <div class="ages">Grades 7–10 or equivalent</div>
+        <div class="price-row"><span class="price-now">$70</span><span class="price-was">$80</span></div>
+        <div class="price-per">per team of 2–3 · until September 30</div>
+        <ul class="price-list">
+          <li>4-month original research phase</li>
+          <li>Online qualifying round in November</li>
+          <li>Finals in Hong Kong or Bangkok, December 4–6</li>
+          <li>Certificate of participation</li>
+        </ul>
+        <a href="https://emeraldhv.com/competitions" class="btn btn-ghost btn-block">Register Junior Team</a>
+      </div>
+      <div class="price-card senior">
+        <div class="price-tag">Early Bird</div>
+        <div class="division">Senior Division</div>
+        <h3>Ages 16–18</h3>
+        <div class="ages">Grades 11–13 or equivalent</div>
+        <div class="price-row"><span class="price-now">$70</span><span class="price-was">$80</span></div>
+        <div class="price-per">per team of 2–3 · until September 30</div>
+        <ul class="price-list">
+          <li>4-month original research phase</li>
+          <li>Online qualifying round in November</li>
+          <li>Finals in Hong Kong or Bangkok, December 4–6</li>
+          <li>Certificate + university credential</li>
+        </ul>
+        <a href="https://emeraldhv.com/competitions" class="btn btn-gold btn-block">Register Senior Team</a>
+      </div>
+    </div>
+    <p class="price-note">All fees in USD, paid via Stripe. Receipt issued to mentor teacher email. Schools registering 5+ teams — contact us for institutional pricing.</p>
+  </div>
+</section>
+
+<section class="section-pad bg-forest" id="judges">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow" style="color:var(--mint)">Meet Your Judges</div>
+      <h2>Evaluated by scholars and young research leaders.</h2>
+      <p style="color:rgba(255,255,255,0.72)">Your research is assessed by academic leaders and Olympiad medalists from Asia-Pacific universities and research institutions.</p>
+    </div>
+
+    <div class="judges-tier">
+      <div class="tier-label">Lead Judges</div>
+      <div class="judges-grid">
+        <div class="judge-card">
+          <div class="judge-avatar">BS</div>
+          <div><div class="judge-name">Berik Sabdenaliyev</div><div class="judge-role">Dean, School of Social Sciences, Business &amp; Law</div><div class="judge-org">SDU University</div></div>
+        </div>
+        <div class="judge-card">
+          <div class="judge-avatar">AZ</div>
+          <div><div class="judge-name">Almat Zhailaubayev</div><div class="judge-role">Vice President for Finance / CFO</div><div class="judge-org">North American University</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="judges-tier">
+      <div class="tier-label">Olympiad Mentor Panel — Technical Review</div>
+      <div class="judges-grid three">
+        <div class="judge-card">
+          <div class="judge-avatar">FS</div>
+          <div><div class="judge-name">Fetullakh Sam</div><div class="judge-role">IMO 2× Silver, IZhO Gold</div><div class="judge-org">HKUST, Computer Science</div></div>
+        </div>
+        <div class="judge-card">
+          <div class="judge-avatar">AB</div>
+          <div><div class="judge-name">Arman Bakytov</div><div class="judge-role">APhO Bronze · KZ Physics Team</div><div class="judge-org">CityU Hong Kong, Computer &amp; Data Engineering</div></div>
+        </div>
+        <div class="judge-card">
+          <div class="judge-avatar">AS</div>
+          <div><div class="judge-name">Arseniy Samoilenko</div><div class="judge-role">KZ Physics Gold · IJSO Bronze</div><div class="judge-org">Former Kazakhstan National Physics Team</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="prep">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Prepare Your Team</div>
+      <h2>Everything a coordinator needs to say yes.</h2>
+    </div>
+    <div class="prep-grid">
+      <div class="prep-card"><div class="why-icon">📚</div><h3>Research Guidelines</h3><p>Structure your project, integrate AI meaningfully, and meet the judging criteria.</p><a href="https://emeraldhv.com/competitions">Download guide →</a></div>
+      <div class="prep-card"><div class="why-icon">🎯</div><h3>Example Projects</h3><p>See how past finalists integrated AI, structured research, and presented findings.</p><a href="https://emeraldhv.com/competitions">View examples →</a></div>
+      <div class="prep-card"><div class="why-icon">👨‍🏫</div><h3>Mentor Resources</h3><p>Timeline, project template, and evaluation rubric for coordinating teachers.</p><a href="https://emeraldhv.com/competitions">Access kit →</a></div>
+      <div class="prep-card"><div class="why-icon">🔗</div><h3>AI Tools Primer</h3><p>LLMs, data platforms, and visualization systems suitable for scientific research.</p><a href="https://emeraldhv.com/competitions">Read primer →</a></div>
+      <div class="prep-card"><div class="why-icon">❓</div><h3>FAQ &amp; Support</h3><p>Methodology, eligibility, submission requirements, and judging process.</p><a href="#faq">Browse FAQ →</a></div>
+      <div class="prep-card"><div class="why-icon">📧</div><h3>Coordinator Support</h3><p>Need help recruiting or organizing at your school? We're here for that.</p><a href="mailto:register@aispc2026.org">Email support →</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad bg-cream">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Finals Week</div>
+      <h2>One trip. Three competitions. A whole cohort.</h2>
+      <p>A-ISPC finalists share the finals venue with A-IBFC and Emerald Prize — same week, one unforgettable experience.</p>
+    </div>
+    <div class="cross-grid">
+      <div class="cross-card cross-1">
+        <div class="eyebrow">Business &amp; Finance</div>
+        <h3>A-IBFC 2026</h3>
+        <p>Financial literacy &amp; entrepreneurship challenge. Team quiz bowl and pitch finals.</p>
+        <a href="https://aibfc.org">Visit aibfc.org →</a>
+      </div>
+      <div class="cross-card cross-2">
+        <div class="eyebrow">Art &amp; Design</div>
+        <h3>Emerald Prize</h3>
+        <p>Traditional art and AI-assisted digital design, judged in separate categories.</p>
+        <a href="https://emeraldprize.com">Visit emeraldprize.com →</a>
+      </div>
+      <div class="cross-card cross-3">
+        <div class="eyebrow">All Competitions</div>
+        <h3>EHV Finals Week</h3>
+        <p>December 4–6, Hong Kong or Bangkok. 300+ students, 30+ countries.</p>
+        <a href="https://emeraldhv.com/competitions">See finals week →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Frequently Asked Questions</div>
+      <h2>What coordinators ask us most.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q"><span>What does "AI-assisted" mean? Can we use any AI tool?</span><span class="icon">+</span></div>
+        <div class="faq-a"><p>AI should be a genuine contributor to your research — not a gimmick. Use it for data analysis, literature reviews, hypothesis generation, visualization, or refinement. Document how you used it, justify your choice, and critically evaluate its role. LLMs, computer vision systems, data platforms, and specialized research tools all count. What doesn't count: having AI write your report for you, or using it only for formatting.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Can students from different schools form a team?</span><span class="icon">+</span></div>
+        <div class="faq-a"><p>No. All team members must be enrolled at the same school, and your mentor teacher must be a staff member of that school. This keeps accountability clear and coordination simple. Schools can enter multiple teams — just register each one separately.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>What is the refund policy?</span><span class="icon">+</span></div>
+        <div class="faq-a"><p>Full refunds are available until October 15, 2026. After that date, registration fees are non-refundable, as judging resources are committed based on team counts. If A-ISPC 2026 is cancelled by the organizers, all fees are refunded in full.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Do we have to travel to the finals in person?</span><span class="icon">+</span></div>
+        <div class="faq-a"><p>Physical attendance is strongly encouraged for the full finalist experience. The finals will be held in Hong Kong or Bangkok — the single host city will be confirmed and announced ahead of the finalist notification date. If travel is genuinely not possible for your team, contact us to discuss options.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>In what currency is the entry fee?</span><span class="icon">+</span></div>
+        <div class="faq-a"><p>Entry fees are USD $70 (early bird, until Sept 30) or $80 (standard). Payment is collected via Stripe by Emerald Horizon Ventures (Hong Kong). Your card is charged in your local currency at the rate applied by Stripe or your card issuer. A USD receipt is issued to your mentor teacher's email.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>What are the judging criteria?</span><span class="icon">+</span></div>
+        <div class="faq-a"><p>Teams are evaluated on three dimensions: Scientific Rigour (40%) — does your methodology stand up? Creativity of Inquiry (30%) — is your research question original? Thoughtful AI Integration (30%) — did you use AI meaningfully and document its role?</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>We're having trouble registering. Who do we contact?</span><span class="icon">+</span></div>
+        <div class="faq-a"><p>Email our registration team at register@aispc2026.org. We aim to respond within 2 business days. Include a screenshot if you're hitting a technical issue with the form.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Can our school get bulk discounts for multiple teams?</span><span class="icon">+</span></div>
+        <div class="faq-a"><p>Not on the early bird rate, since that's a time-limited offer. For schools registering 5+ teams, we offer institutional pricing — contact register@aispc2026.org for a custom quote.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad tight">
+  <div class="wrap">
+    <div class="final-cta">
+      <div class="eyebrow" style="justify-content:center;color:var(--mint)">Early Bird Ends September 30</div>
+      <h2>Your students are already using AI.<br>Give the research somewhere to go.</h2>
+      <p>Register your team before September 30 to lock in early-bird pricing and give your students a real research credential.</p>
+      <div class="hero-ctas">
+        <a href="#pricing" class="btn btn-gold">Register Your Team — $70</a>
+        <a href="mailto:register@aispc2026.org" class="btn btn-outline">Talk to our team</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#" class="brand"><span class="mark">AI</span><span>A-ISPC 2026</span></a>
+        <p>International AI-Assisted Science Project Competition. Part of Emerald Horizon Ventures' EHV Finals Week, Hong Kong or Bangkok.</p>
+      </div>
       <div>
-        <div class="judges-tier-label">Olympiad Mentor Panel (Technical Review)</div>
-        <div class="judges-grid">
-          <div class="judge-card">
-            <div class="judge-photo" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
-            <div class="judge-name">Fetullakh Sam</div>
-            <div class="judge-title">IMO 2× Silver</div>
-            <div class="judge-affiliation">
-              Computer Science
-              <br><strong>HKUST</strong>
-            </div>
-            <span class="judge-badge">Olympiad Mentor</span>
-          </div>
-
-          <div class="judge-card">
-            <div class="judge-photo" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
-            <div class="judge-name">Arman Bakytov</div>
-            <div class="judge-title">APhO Bronze</div>
-            <div class="judge-affiliation">
-              Computer & Data Engineering
-              <br><strong>CityU Hong Kong</strong>
-            </div>
-            <span class="judge-badge">Physics Specialist</span>
-          </div>
-
-          <div class="judge-card">
-            <div class="judge-photo" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);"></div>
-            <div class="judge-name">Arseniy Samoilenko</div>
-            <div class="judge-title">Physics Gold</div>
-            <div class="judge-affiliation">
-              Kazakhstan National Physics Team
-              <br><strong>Asia-Pacific Network</strong>
-            </div>
-            <span class="judge-badge">Physics Specialist</span>
-          </div>
-        </div>
+        <h5>Competition</h5>
+        <ul>
+          <li><a href="#why">Why A-ISPC</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#judges">Judges</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>EHV Finals Week</h5>
+        <ul>
+          <li><a href="https://aibfc.org">A-IBFC 2026</a></li>
+          <li><a href="https://emeraldprize.com">Emerald Prize</a></li>
+          <li><a href="https://emeraldhv.com/competitions">All competitions</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:register@aispc2026.org">register@aispc2026.org</a></li>
+          <li><a href="#faq">FAQ &amp; Support</a></li>
+        </ul>
       </div>
     </div>
-  </section>
-
-  <!-- RESOURCES & PREP SECTION -->
-  <section class="resources-section">
-    <div class="container">
-      <h2>Prepare Your Team</h2>
-      <div class="resources-grid">
-        <div class="resource-card">
-          <h4>📚 Research Guidelines</h4>
-          <p>Download our detailed guide on structuring your project, integrating AI meaningfully, and meeting the judging criteria.</p>
-          <a href="https://emeraldhv.com/competitions" class="resource-link">Download Guide →</a>
-        </div>
-
-        <div class="resource-card">
-          <h4>🎯 Example Projects</h4>
-          <p>See finalists from past competitions. Learn how they integrated AI, structured their research, and presented their findings.</p>
-          <a href="https://emeraldhv.com/competitions" class="resource-link">View Examples →</a>
-        </div>
-
-        <div class="resource-card">
-          <h4>👨‍🏫 Mentor Resources</h4>
-          <p>Teachers: download the coordinator kit with timeline, student project template, and rubric for evaluating your team's work.</p>
-          <a href="https://emeraldhv.com/competitions" class="resource-link">Access Kit →</a>
-        </div>
-
-        <div class="resource-card">
-          <h4>🔗 AI Tools Primer</h4>
-          <p>Overview of AI tools suitable for scientific research — LLMs, data analysis platforms, visualization systems, literature synthesis.</p>
-          <a href="https://emeraldhv.com/competitions" class="resource-link">Read Primer →</a>
-        </div>
-
-        <div class="resource-card">
-          <h4>❓ FAQ & Support</h4>
-          <p>Common questions about research methodology, team eligibility, submission requirements, and the judging process.</p>
-          <a href="#faq" class="resource-link">Browse FAQ →</a>
-        </div>
-
-        <div class="resource-card">
-          <h4>📧 Coordinator Support</h4>
-          <p>Need help recruiting, organizing, or marketing the competition at your school? Email our team for resources and guidance.</p>
-          <a href="mailto:register@aispc2026.org" class="resource-link">Email Support →</a>
-        </div>
-      </div>
+    <div class="foot-bottom">
+      <span>© 2026 Emerald Horizon Ventures (Hong Kong). All rights reserved.</span>
+      <span>Finals: Hong Kong or Bangkok · December 4–6, 2026</span>
     </div>
-  </section>
+  </div>
+</footer>
 
-  <!-- FAQ SECTION -->
-  <section id="faq" class="faq-section">
-    <div class="container">
-      <h2>Frequently Asked Questions</h2>
-      <div class="faq-container">
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            <span class="faq-toggle">+</span>
-            What does "AI-assisted" mean? Can we use any AI tool?
-          </div>
-          <div class="faq-answer">
-            AI should be a genuine contributor to your research — not a gimmick. Use it for data analysis, literature reviews, hypothesis generation, visualization, or hypothesis refinement. The key is that you document how you used it, justify your choice, and critically evaluate its role. LLMs (ChatGPT, Claude), computer vision systems, data platforms, and specialized research tools all count. What doesn't count: having AI write your report for you or using it only for formatting.
-          </div>
-        </div>
+<div class="sticky-cta">
+  <div class="lbl">Early bird ends Sept 30<b>$70 per team</b></div>
+  <a href="#pricing" class="btn btn-gold">Register</a>
+</div>
 
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            <span class="faq-toggle">+</span>
-            Can students from different schools form a team?
-          </div>
-          <div class="faq-answer">
-            No. All team members must be enrolled at the same school, and your mentor teacher must also be a staff member of that school. This ensures clear institutional accountability and simplifies coordination. Schools can enter multiple teams — just register each one separately.
-          </div>
-        </div>
+<script>
+  // Countdown to Sept 30, 2026 23:59:59 (Asia/Bangkok, UTC+7)
+  var target = new Date("2026-09-30T23:59:59+07:00").getTime();
+  function tick(){
+    var now = new Date().getTime();
+    var diff = target - now;
+    if(diff < 0) diff = 0;
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-d').textContent = d;
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 1000);
 
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            <span class="faq-toggle">+</span>
-            What is the refund policy?
-          </div>
-          <div class="faq-answer">
-            Full refunds are available until August 31, 2026. After that date, registration fees are non-refundable as judging resources are committed based on team counts. If A-ISPC 2026 is cancelled by the organizers, all fees will be refunded in full.
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            <span class="faq-toggle">+</span>
-            Do we have to travel to Hong Kong for the finals?
-          </div>
-          <div class="faq-answer">
-            No. The finals are hybrid — qualifying teams can present in person in Hong Kong or via live video link. Physical attendance is encouraged but not required. Remote participants have full judging access and awards eligibility.
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            <span class="faq-toggle">+</span>
-            In what currency is the entry fee? What about currency conversion?
-          </div>
-          <div class="faq-answer">
-            Entry fees are USD $70 (early bird) or $80 (standard). Payment is collected via Stripe by Emerald Horizon Ventures (Hong Kong). Your card will be charged in your local currency at the rate applied by Stripe or your card issuer. A receipt in USD will be issued to your mentor teacher's email.
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            <span class="faq-toggle">+</span>
-            What are the judging criteria?
-          </div>
-          <div class="faq-answer">
-            Teams are evaluated on three dimensions: (1) Scientific Rigour — does your methodology stand up? (2) Creativity of Inquiry — is your research question original? (3) Thoughtful AI Integration — did you use AI meaningfully and document its role? The balance is 40% rigour, 30% creativity, 30% AI integration.
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            <span class="faq-toggle">+</span>
-            We're having trouble registering. Who do we contact?
-          </div>
-          <div class="faq-answer">
-            Email our registration team at <a href="mailto:register@aispc2026.org">register@aispc2026.org</a>. We aim to respond within 2 business days. For technical issues with the registration form, include a screenshot if possible.
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            <span class="faq-toggle">+</span>
-            Can our school get bulk discounts for multiple teams?
-          </div>
-          <div class="faq-answer">
-            Not on the early bird rate, as that's a time-limited offer. However, for schools registering 5+ teams, we offer institutional pricing. Contact us at <a href="mailto:register@aispc2026.org">register@aispc2026.org</a> for a custom quote.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <p><strong>A-ISPC 2026</strong></p>
-      <p style="margin: var(--spacing-sm) 0;">International AI-Assisted Science Project Competition</p>
-      <p style="margin: var(--spacing-md) 0; font-size: 13px; opacity: 0.8;">
-        Finals: Hong Kong, December 11–13, 2026 · Hybrid (In-Person + Remote)
-      </p>
-      <p style="margin: var(--spacing-md) 0;">
-        <a href="mailto:register@aispc2026.org">register@aispc2026.org</a>
-      </p>
-      <p style="margin-top: var(--spacing-lg); padding-top: var(--spacing-lg); border-top: 1px solid rgba(255,255,255,0.2); font-size: 12px; opacity: 0.7;">
-        © 2026 Emerald Horizon Ventures (Hong Kong). All rights reserved.
-      </p>
-    </div>
-  </footer>
-
-  <script>
-    // Countdown timer
-    function updateCountdown() {
-      const earlyBirdEnd = new Date('2026-07-31T23:59:59Z').getTime();
-      const now = new Date().getTime();
-      const distance = earlyBirdEnd - now;
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-      document.getElementById('days').textContent = String(days).padStart(2, '0');
-      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 60000); // Update every minute
-
-    // Scroll to register
-    function scrollToRegister() {
-      document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // Register team
-    function registerTeam(division) {
-      // In production, this would redirect to Stripe checkout
-      // For now, show a message
-      alert('Redirecting to Stripe checkout for ' + division + ' division...\n\nIn production: https://ehvcompetitions.com/checkout?product=' + division);
-    }
-
-    // FAQ toggle
-    function toggleFaq(element) {
-      element.closest('.faq-item').classList.toggle('active');
-    }
-
-    // Close FAQ when clicking outside
-    document.addEventListener('click', function(event) {
-      if (!event.target.closest('.faq-item')) {
-        // Could add auto-close logic here if needed
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    var q = item.querySelector('.faq-q');
+    var a = item.querySelector('.faq-a');
+    q.addEventListener('click', function(){
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(o){
+        o.classList.remove('open');
+        o.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
       }
     });
-  </script>
+  });
+
+  // reveal on scroll
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); } });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
 
 </body>
 </html>
